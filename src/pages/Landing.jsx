@@ -36,6 +36,41 @@ export default function Landing() {
     };
 
     const [logos, setLogos] = useState(generateInitialLogos());
+    const [timeLeft, setTimeLeft] = useState({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+    });
+
+    // Countdown timer effect
+    useEffect(() => {
+        const targetDate = new Date('October 16, 2025 09:00:00').getTime();
+
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                // Event has passed
+                setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+                return;
+            }
+
+            setTimeLeft({
+                days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+                seconds: Math.floor((distance % (1000 * 60)) / 1000)
+            });
+        };
+
+        // Update immediately and then every second
+        updateCountdown();
+        const interval = setInterval(updateCountdown, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         const lenis = new Lenis({
@@ -145,15 +180,23 @@ export default function Landing() {
             <section ref={heroSectionRef} className="min-h-screen w-full flex flex-col items-center justify-center px-4">
                 <div className="flex flex-col md:flex-row w-full items-center justify-center space-y-8 md:space-y-0 md:space-x-16">
                     {/* Left Column: GRITX Title */}
-                    <div ref={logoRef} className="gritx-title text-[20vw] md:text-[12vw] font-black text-gray-200 flex items-center justify-center">
-                        <span>G</span>
-                        <span>R</span>
-                        <span ref={iRef} className="relative">I</span>
-                        <span>T</span>
-                        <span>X</span>
-                        <span>8</span>
-                        <span>.</span>
-                        <span>0</span>
+                    <div className="flex flex-col items-center">
+                        <div className="text-center text-xs md:text-sm uppercase tracking-widest text-gray-300">
+                            <div>SRI SAIRAM ENGINEERING COLLEGE</div>
+                            <div>NATIONAL SERVICE SCHEME</div>
+                            <div className="mt-2 font-medium text-gray-100">PRESENTS</div>
+                        </div>
+
+                        <div ref={logoRef} className="gritx-title text-[20vw] md:text-[12vw] font-black text-gray-200 flex items-center justify-center">
+                            <span>G</span>
+                            <span>R</span>
+                            <span ref={iRef} className="relative">I</span>
+                            <span>T</span>
+                            <span>X</span>
+                            <span>8</span>
+                            <span>.</span>
+                            <span>0</span>
+                        </div>
                     </div>
 
                     {/* Right Column: Circular animated logos */}
@@ -191,6 +234,34 @@ export default function Landing() {
                                     </motion.div>
                                 );
                             })}
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* Countdown Timer */}
+                <div className="text-center">
+                    <motion.div
+                        className="flex flex-wrap justify-center gap-8"
+
+                    >
+                        <div className="flex flex-col items-center">
+                            <div className="text-4xl md:text-5xl font-bold text-cyan-400">{timeLeft.days}</div>
+                            <div className="text-sm uppercase tracking-wider text-gray-400">Days</div>
+                        </div>
+                        <div className="text-4xl md:text-5xl font-bold text-gray-600 self-start">:</div>
+                        <div className="flex flex-col items-center">
+                            <div className="text-4xl md:text-5xl font-bold text-cyan-400">{timeLeft.hours}</div>
+                            <div className="text-sm uppercase tracking-wider text-gray-400">Hours</div>
+                        </div>
+                        <div className="text-4xl md:text-5xl font-bold text-gray-600 self-start">:</div>
+                        <div className="flex flex-col items-center">
+                            <div className="text-4xl md:text-5xl font-bold text-cyan-400">{timeLeft.minutes}</div>
+                            <div className="text-sm uppercase tracking-wider text-gray-400">Minutes</div>
+                        </div>
+                        <div className="text-4xl md:text-5xl font-bold text-gray-600 self-start">:</div>
+                        <div className="flex flex-col items-center">
+                            <div className="text-4xl md:text-5xl font-bold text-cyan-400">{timeLeft.seconds}</div>
+                            <div className="text-sm uppercase tracking-wider text-gray-400">Seconds</div>
                         </div>
                     </motion.div>
                 </div>

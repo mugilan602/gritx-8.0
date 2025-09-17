@@ -300,12 +300,6 @@ export default function Landing() {
                 </div>
             </section>
 
-            {/* Final Section */}
-            <section className="min-h-screen w-full flex items-center justify-center text-center bg-gray-800 px-4">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-200">
-                    Empowering Innovation, Together.
-                </h2>
-            </section>
         </div>
     );
 }

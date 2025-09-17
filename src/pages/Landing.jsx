@@ -24,6 +24,17 @@ export default function Landing() {
     const eventsDestinationRef = useRef(null);
     const logoRef = useRef(null);
 
+    const circleRef = useRef(null);
+    const [radius, setRadius] = useState(140);
+
+    // compute x/y for a given index on the circle
+    const getPosition = (index, count, r) => {
+        const angle = (index / count) * Math.PI * 2 - Math.PI / 2; // start at top
+        const x = Math.cos(angle) * r;
+        const y = Math.sin(angle) * r;
+        return { x, y };
+    };
+
     const [logos, setLogos] = useState(generateInitialLogos());
 
     useEffect(() => {
@@ -43,16 +54,17 @@ export default function Landing() {
             ScrollTrigger.refresh();
 
             const placeholder = placeholderRef.current;
-            const iChar = iRef.current;
             const aboutDestination = aboutDestinationRef.current;
             const aboutSection = aboutSectionRef.current;
             const eventsDestination = eventsDestinationRef.current;
             const eventsSection = eventsSectionRef.current;
 
             const mainRect = mainRef.current.getBoundingClientRect();
-            const iRect = iChar.getBoundingClientRect();
-            const initialTop = iRect.top - mainRect.top;
-            const initialLeft = iRect.left - mainRect.left + iRect.width / 2 - 50;
+            const logoContainer = circleRef.current;
+            const logoRect = logoContainer.getBoundingClientRect();
+
+            const initialTop = logoRect.top - mainRect.top + logoRect.height / 2 - 40;
+            const initialLeft = logoRect.left - mainRect.left + logoRect.width / 2 - 40;
 
             const aboutDestRect = aboutDestination.getBoundingClientRect();
             const aboutFinalTop = aboutDestRect.top - mainRect.top + aboutDestRect.height / 2 - 50;
@@ -112,6 +124,7 @@ export default function Landing() {
         };
     }, []);
 
+
     // Randomly reorder logos every 3 seconds
     useEffect(() => {
         const interval = setInterval(() => {
@@ -132,51 +145,67 @@ export default function Landing() {
             <section ref={heroSectionRef} className="min-h-screen w-full flex flex-col items-center justify-center px-4">
                 <div className="flex flex-col md:flex-row w-full items-center justify-center space-y-8 md:space-y-0 md:space-x-16">
                     {/* Left Column: GRITX Title */}
-                    <div ref={logoRef} className="gritx-title text-[20vw] md:text-[15vw] font-black text-gray-200 flex items-center justify-center">
+                    <div ref={logoRef} className="gritx-title text-[20vw] md:text-[12vw] font-black text-gray-200 flex items-center justify-center">
                         <span>G</span>
                         <span>R</span>
                         <span ref={iRef} className="relative">I</span>
                         <span>T</span>
                         <span>X</span>
+                        <span>8</span>
+                        <span>.</span>
+                        <span>0</span>
                     </div>
 
-                    {/* Right Column: Animated Reordering Logos */}
+                    {/* Right Column: Circular animated logos */}
                     <motion.div
-                        className="grid grid-cols-4 gap-4"
+                        className="relative w-80 h-80 md:w-96 md:h-96 flex items-center justify-center"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1 }}
                     >
-                        <Reorder.Group axis="x" values={logos} onReorder={setLogos} className="flex flex-wrap justify-center items-center">
-                            {logos.map((logo) => (
-                                <Reorder.Item
-                                    key={logo.id}
-                                    value={logo}
-                                    layout
-                                    initial={{ scale: 1, opacity: 0.8 }}
-                                    animate={{ scale: 1, opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-                                    className="w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center text-black font-bold"
-                                >
-                                    {logo.label}
-                                </Reorder.Item>
+                        {/* rotating circle container */}
+                        <motion.div
+                            ref={circleRef}
+                            className="absolute inset-0 flex items-center justify-center"
+                            animate={{ rotate: 360 }}
+                            transition={{ repeat: Infinity, duration: 20, ease: 'linear' }}
+                        >
+                            {/* center placeholder (optional) */}
+                            <div className="w-6 h-6 bg-gray-600 rounded-full z-0" />
+                        </motion.div>
 
-                            ))}
-                        </Reorder.Group>
+                        {/* logos positioned absolutely around the circle */}
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            {logos.map((logo, idx) => {
+                                const pos = getPosition(idx, logos.length, radius);
+                                return (
+                                    <motion.div
+                                        key={logo.id}
+                                        className="pointer-events-auto absolute w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center text-black font-bold"
+                                        layout
+                                        initial={{ opacity: 0.8, scale: 0.95 }}
+                                        animate={{ x: pos.x, y: pos.y, opacity: 1, scale: 1 }}
+                                        transition={{ type: 'spring', stiffness: 120, damping: 20 }}
+                                    >
+                                        {logo.label}
+                                    </motion.div>
+                                );
+                            })}
+                        </div>
                     </motion.div>
                 </div>
             </section>
 
             {/* About Section */}
             <section ref={aboutSectionRef} className="min-h-screen w-full flex flex-col md:flex-row items-center justify-center py-16 px-4">
+                <div ref={aboutDestinationRef} className="w-full md:w-1/2 flex items-center justify-center min-h-[200px] sm:min-h-[300px]"></div>
+
                 <div className="w-full md:w-1/2 pr-0 md:pr-8 mb-8 md:mb-0">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">About GRITX</h2>
                     <p className="text-gray-300 text-base md:text-lg">
                         GRITX represents the pinnacle of design and engineering. Our philosophy is rooted in precision, strength, and a forward-thinking approach to solve complex challenges. We build solutions that are not only robust but also elegant and intuitive.
                     </p>
                 </div>
-                <div ref={aboutDestinationRef} className="w-full md:w-1/2 flex items-center justify-center min-h-[200px] sm:min-h-[300px]"></div>
             </section>
 
             {/* Events Section */}

@@ -173,7 +173,7 @@ export default function Landing() {
     }, []);
 
     return (
-        <div ref={mainRef} className="bg-gray-900 text-white font-sans overflow-x-hidden relative">
+        <div ref={mainRef} className=" text-white font-sans overflow-x-hidden relative">
             <div ref={placeholderRef} className="absolute w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] bg-gray-500 z-10 rounded-lg shadow-2xl"></div>
 
             {/* Hero Section */}
@@ -280,7 +280,7 @@ export default function Landing() {
             </section>
 
             {/* Events Section */}
-            <section ref={eventsSectionRef} className="min-h-screen w-full flex flex-col items-center justify-center py-16 px-4 bg-gray-900">
+            <section ref={eventsSectionRef} className="min-h-screen w-full flex flex-col items-center justify-center py-16 px-4 ">
                 <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8">
                     <div className="w-full md:w-5/12 p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700">
                         <h3 className="text-2xl font-bold mb-4 text-cyan-300">Tech Events</h3>

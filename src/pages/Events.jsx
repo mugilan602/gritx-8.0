@@ -116,12 +116,12 @@ const hue = (h) => `hsl(${h}, 100%, 50%)`
 
 const container = {
     margin: "60px auto",
-    maxWidth: "95%",
+    maxWidth: "98%",
     paddingBottom: 100,
     width: "100%",
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-    gap: "3rem",
+    gap: "7rem",
     alignItems: "start",
     "@media (min-width: 768px)": {
         maxWidth: "1200px",
@@ -154,7 +154,7 @@ const splash = {
 const card = {
     width: "100%",
     minWidth: 280,
-    maxWidth: 300,
+    maxWidth: 280,
     height: "auto",
     minHeight: 400,
     borderRadius: 20,

@@ -89,7 +89,7 @@ export default function AnimatedEventPage({ eventData }) {
     }, [eventData]);
 
     return (
-        <div ref={containerRef} className="bg-black text-white overflow-hidden">
+        <div ref={containerRef} className="text-white overflow-hidden">
             <div
                 ref={sectionsWrapperRef}
                 className="flex h-screen w-max"

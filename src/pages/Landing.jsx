@@ -3,6 +3,8 @@ import { gsap } from 'https://esm.sh/gsap';
 import { ScrollTrigger } from 'https://esm.sh/gsap/ScrollTrigger';
 import Lenis from 'https://esm.sh/@studio-freight/lenis';
 import { motion, Reorder } from 'framer-motion';
+import ProgramOfficers from '../components/ProgramOfficers';
+import MainLeads from '../components/MainLeads';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -299,7 +301,12 @@ export default function Landing() {
                     </div>
                 </div>
             </section>
-
+            <section>
+                <ProgramOfficers />
+            </section>
+            <section>
+                <MainLeads />
+            </section>
         </div>
     );
 }

@@ -240,7 +240,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             <div ref={placeholderRef} className="absolute w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] bg-gray-500 z-10 rounded-lg shadow-2xl"></div>
 
             {/* Hero Section */}
-            <section ref={heroSectionRef} className="min-h-screen w-full flex flex-col items-center justify-center px-4">
+            <section ref={heroSectionRef} className="min-h-screen w-full flex flex-col items-center justify-center px-4 full-vh">
                 <div className="flex flex-col md:flex-row w-full items-center justify-center md:space-y-0 md:space-x-16">
                     {/* Left Column: GRITX Title */}
                     <div className="flex flex-col items-center">
@@ -331,7 +331,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             </section>
 
             {/* About Section */}
-            <section ref={aboutSectionRef} className="min-h-screen w-full flex flex-col space-y-20 sm:space-y-0 md:flex-row items-center justify-center py-16 px-4">
+            <section ref={aboutSectionRef} className="min-h-screen w-full flex flex-col space-y-20 sm:space-y-0 md:flex-row items-center justify-center py-16 px-4 full-vh">
                 <div ref={aboutDestinationRef} className="w-full md:w-1/2 flex items-center justify-center min-h-[200px] sm:min-h-[300px]"></div>
 
                 <div className="w-full md:w-1/2 pr-0 md:pr-8 mb-8 md:mb-0">
@@ -343,7 +343,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             </section>
 
             {/* Events Section */}
-            <section ref={eventsSectionRef} className="min-h-screen w-full flex flex-col items-center justify-center py-16 px-4 ">
+            <section ref={eventsSectionRef} className="min-h-screen w-full flex flex-col items-center justify-center py-16 px-4 full-vh">
                 <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8">
                     <div className="w-full md:w-5/12 p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700">
                         <h3 className="text-2xl font-bold mb-4 text-cyan-300">Tech Events</h3>

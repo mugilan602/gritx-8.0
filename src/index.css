@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+/* dynamic viewport unit for mobile address-bar resizing
+	 Use var(--vh) in place of 1vh when you want the viewport height that accounts for
+	 the browser UI (address bar) changes. Example: height: calc(var(--vh) * 100);
+*/
+:root {
+	--vh: 1vh;
+}
+
+.full-vh {
+	height: calc(var(--vh) * 100) !important;
+	min-height: calc(var(--vh) * 100) !important;
+}

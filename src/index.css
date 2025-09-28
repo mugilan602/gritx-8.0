@@ -8,16 +8,9 @@
     --vh: 1vh;
 }
 
+/* In your global CSS file (e.g., index.css) */
 .full-vh {
-    /* Default: use the dynamic viewport height variable */
-    height: calc(var(--vh) * 100) !important;
-    min-height: calc(var(--vh) * 100) !important;
-}
-
-/* On small/mobile screens, add a small buffer to avoid gaps when browser chrome hides */
-@media (max-width: 767px) {
-    .full-vh {
-        height: max(calc(var(--vh) * 100 + 60px), 100vh) !important;
-        min-height: max(calc(var(--vh) * 100 + 60px), 100vh) !important;
-    }
+    min-height: 100vh;
+    /* Fallback for browsers that don't support custom properties */
+    min-height: calc(var(--vh, 1vh) * 100);
 }

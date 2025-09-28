@@ -13,7 +13,7 @@ function App() {
   const { heroSectionRef, aboutSectionRef, footerRef } = useSectionContext();
 
   return (
-    <div className="bg-gray-900">
+    <div>
       <Particles />
       <Navbar />
       <main>

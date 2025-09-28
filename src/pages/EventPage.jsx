@@ -20,7 +20,9 @@ const myCoolEvent = {
     coordinators: [
         { id: 1, name: "Priya Sharma", role: "Lead Organizer", imageUrl: "https://via.placeholder.com/150/808080/FFFFFF?text=PS" },
         { id: 2, name: "Rohan Kumar", role: "Technical Head", imageUrl: "https://via.placeholder.com/150/808080/FFFFFF?text=RK" },
-        { id: 3, name: "Anjali Desai", role: "Marketing & Outreach", imageUrl: "https://via.placeholder.com/150/808080/FFFFFF?text=AD" },
+        { id: 4, name: "Anjali Desai", role: "Marketing & Outreach", imageUrl: "https://via.placeholder.com/150/808080/FFFFFF?text=AD" },
+        { id: 5, name: "Anjali Desai", role: "Marketing & Outreach", imageUrl: "https://via.placeholder.com/150/808080/FFFFFF?text=AD" },
+        { id: 6, name: "Anjali Desai", role: "Marketing & Outreach", imageUrl: "https://via.placeholder.com/150/808080/FFFFFF?text=AD" },
     ],
 };
 

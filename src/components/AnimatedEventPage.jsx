@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useRef } from 'react';
+import { useWindowSize } from '../hooks/useWindowSize';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from '@studio-freight/lenis';
@@ -10,6 +11,8 @@ gsap.registerPlugin(ScrollTrigger);
 export default function AnimatedEventPage({ eventData }) {
     const containerRef = useRef();
     const sectionsWrapperRef = useRef();
+    const [width] = useWindowSize();
+    const isMobile = width < 768;
 
     useLayoutEffect(() => {
         const lenis = new Lenis({
@@ -27,23 +30,30 @@ export default function AnimatedEventPage({ eventData }) {
         const ctx = gsap.context(() => {
             const sections = gsap.utils.toArray('.section');
             const roundCards = gsap.utils.toArray('.round-card');
+            const coordinatorCards = gsap.utils.toArray('.coordinator-card');
 
             // Set initial state for cards: all but the first are hidden below
             if (roundCards.length > 0) {
                 gsap.set(roundCards.slice(1), { yPercent: 100 });
             }
 
+            // Set initial state for coordinator cards: all but the first are hidden below
+            if (coordinatorCards.length > 0) {
+                gsap.set(coordinatorCards.slice(1), { yPercent: 100 });
+            }
+
             // Calculate the total scrollable distance
             // Horizontal part + vertical part for the card animations
             const totalHorizontalScroll = (sections.length - 1) * window.innerWidth;
             const totalVerticalScroll = (roundCards.length - 1) * window.innerHeight;
+            const totalCoordinatorScroll = (coordinatorCards.length - 1) * window.innerHeight;
 
             // --- CREATE A SINGLE MASTER TIMELINE ---
             const masterTimeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: containerRef.current,
                     start: 'top top',
-                    end: () => `+=${totalHorizontalScroll + totalVerticalScroll}`,
+                    end: () => `+=${totalHorizontalScroll + totalVerticalScroll + totalCoordinatorScroll}`,
                     scrub: true,
                     pin: true,
                 }
@@ -80,6 +90,17 @@ export default function AnimatedEventPage({ eventData }) {
                 ease: 'none',
             });
 
+            // 5. Add the coordinator card stacking animation
+            if (coordinatorCards.length > 1) {
+                // Create a separate timeline for just the coordinator cards (without a trigger)
+                const coordinatorsTimeline = gsap.timeline();
+                coordinatorCards.slice(1).forEach(card => {
+                    coordinatorsTimeline.to(card, { yPercent: 0, ease: 'none' });
+                });
+                // Add the coordinator animation to the master timeline
+                masterTimeline.add(coordinatorsTimeline);
+            }
+
         }, containerRef);
 
         return () => {
@@ -102,10 +123,10 @@ export default function AnimatedEventPage({ eventData }) {
                         alt={`${eventData.name} Logo`}
                         className="w-24 h-24 rounded-full bg-gray-800 p-2 shadow-md border border-gray-700 mb-6"
                     />
-                    <h1 className="text-5xl md:text-6xl font-extrabold text-white">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white text-center md:text-left">
                         {eventData.name}
                     </h1>
-                    <p className="mt-4 text-lg text-gray-300 leading-relaxed text-center max-w-xl">
+                    <p className="mt-4 text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed text-center md:text-left max-w-xl mx-auto">
                         {eventData.description}
                     </p>
                 </div>
@@ -155,21 +176,24 @@ export default function AnimatedEventPage({ eventData }) {
                 </div>
 
                 {/* Section 4: Coordinators */}
-                <div className="section flex flex-col justify-center w-screen h-screen p-8">
+                <div className="section flex flex-col justify-center w-screen h-screen p-8 overflow-hidden">
                     <h2 className="text-4xl font-bold mb-8 text-center">Meet the Coordinators</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                        {eventData.coordinators.map((coordinator) => (
+                    <div className="relative w-full h-full">
+                        {eventData.coordinators.map((coordinator, index) => (
                             <div
                                 key={coordinator.id}
-                                className="bg-gray-900 p-4 rounded-lg text-center border border-gray-800"
+                                className="coordinator-card absolute inset-0 w-full h-full flex items-center justify-center p-8"
+                                style={{ zIndex: index + 1 }}
                             >
-                                <img
-                                    src={coordinator.imageUrl}
-                                    alt={coordinator.name}
-                                    className="w-24 h-24 mx-auto rounded-full mb-4 border-2 border-gray-600"
-                                />
-                                <h3 className="text-xl font-bold">{coordinator.name}</h3>
-                                <p className="text-gray-400">{coordinator.role}</p>
+                                <div className="bg-gray-900 p-8 rounded-lg text-center border border-gray-800 w-full max-w-md mx-auto">
+                                    <img
+                                        src={coordinator.imageUrl}
+                                        alt={coordinator.name}
+                                        className="w-32 h-32 mx-auto rounded-full mb-6 border-4 border-gray-600 shadow-lg"
+                                    />
+                                    <h3 className="text-2xl font-bold text-white mb-2">{coordinator.name}</h3>
+                                    <p className="text-gray-400 text-lg">{coordinator.role}</p>
+                                </div>
                             </div>
                         ))}
                     </div>

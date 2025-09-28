@@ -11,7 +11,6 @@ import EventPage from './pages/EventPage.jsx';
 
 function App() {
   const { heroSectionRef, aboutSectionRef, footerRef } = useSectionContext();
-
   return (
     <div className='bg-black'>
       <Particles />

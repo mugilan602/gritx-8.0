@@ -5,10 +5,10 @@
 	 the browser UI (address bar) changes. Example: height: calc(var(--vh) * 100);
 */
 :root {
-	--vh: 1vh;
+    --vh: 1vh;
 }
 
 .full-vh {
-	height: calc(var(--vh) * 100) !important;
-	min-height: calc(var(--vh) * 100) !important;
+    height: calc(var(--vh) * 100) !important;
+    min-height: calc(var(--vh) * 100) !important;
 }

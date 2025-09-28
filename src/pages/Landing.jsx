@@ -83,30 +83,38 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
         return () => clearInterval(interval);
     }, []);
 
-    // Main animation and smooth scroll effect
+    // Main animation and smooth scroll effect (optimized for mobile performance)
     useEffect(() => {
+        const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isMobile = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
         const lenis = new Lenis({
-            duration: 1.2,
+            duration: prefersReducedMotion ? 0.6 : (isMobile ? 0.9 : 1.15),
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            smoothTouch: true,
         });
 
-        function raf(time) {
+        // Only trigger ScrollTrigger recalculation when Lenis reports a scroll
+        const onLenisScroll = () => ScrollTrigger.update();
+        lenis.on('scroll', onLenisScroll);
+
+        let rafId;
+        const raf = (time) => {
             lenis.raf(time);
-            ScrollTrigger.update();
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        // ✅ FIX: Refresh ScrollTrigger on viewport changes to fix mobile calculations.
-        // A timeout is used to wait for the browser UI to finish its animation.
-        const refreshScrollTriggers = () => {
-            setTimeout(() => {
-                ScrollTrigger.refresh();
-            }, 500);
+            rafId = requestAnimationFrame(raf);
         };
+        rafId = requestAnimationFrame(raf);
 
-        window.addEventListener('resize', refreshScrollTriggers);
-        window.addEventListener('orientationchange', refreshScrollTriggers);
+        // Debounced refresh for orientation or viewport height changes (mobile address bar)
+        let refreshTimer;
+        const queueRefresh = () => {
+            if (refreshTimer) clearTimeout(refreshTimer);
+            refreshTimer = setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 250);
+        };
+        window.addEventListener('resize', queueRefresh, { passive: true });
+        window.addEventListener('orientationchange', queueRefresh, { passive: true });
 
         const ctx = gsap.context(() => {
             const placeholder = placeholderRef.current;
@@ -154,23 +162,15 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                     scale: 1.5,
                 });
 
+            // Single combined trigger spanning both sections for fewer updates
             ScrollTrigger.create({
                 trigger: aboutSection,
                 start: 'top bottom',
+                endTrigger: eventsSection,
                 end: 'center center',
                 scrub: true,
                 onUpdate: (self) => {
-                    masterTimeline.progress(self.progress * 0.5);
-                },
-            });
-
-            ScrollTrigger.create({
-                trigger: eventsSection,
-                start: 'top bottom',
-                end: 'center center',
-                scrub: true,
-                onUpdate: (self) => {
-                    masterTimeline.progress(0.5 + self.progress * 0.5);
+                    masterTimeline.progress(self.progress);
                 },
             });
 
@@ -181,9 +181,11 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
 
         return () => {
             ctx.revert();
+            lenis.off('scroll', onLenisScroll);
             lenis.destroy();
-            window.removeEventListener('resize', refreshScrollTriggers);
-            window.removeEventListener('orientationchange', refreshScrollTriggers);
+            cancelAnimationFrame(rafId);
+            window.removeEventListener('resize', queueRefresh);
+            window.removeEventListener('orientationchange', queueRefresh);
         };
     }, []);
 
@@ -198,7 +200,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
     return (
         <div ref={mainRef} className="text-white font-sans overflow-x-hidden relative">
             {/* ✅ FIX: Positioned with transform, not top/left */}
-            <div ref={placeholderRef} className="absolute top-0 left-0 w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] bg-gray-500 z-10 rounded-lg shadow-2xl"></div>
+            <div ref={placeholderRef} style={{ willChange: 'transform' }} className="absolute top-0 left-0 w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] bg-gray-500 z-10 rounded-lg shadow-2xl"></div>
 
             {/* Hero Section */}
             {/* ✅ FIX: Added the 'full-vh' class for reliable height on mobile */}

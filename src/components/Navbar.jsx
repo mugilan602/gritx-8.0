@@ -1,18 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSectionContext } from '../context/SectionContext.jsx';
 
 const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
+    { name: 'Home', path: '/', section: 'hero' },
+    { name: 'About', path: '/about', section: 'about' },
     { name: 'Events', path: '/events' },
-    { name: 'Contact', path: '/contact' }
+    { name: 'Contact', path: '/contact', section: 'footer' }
 ];
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
+    const { heroSectionRef, aboutSectionRef, footerRef, scrollToSection } = useSectionContext();
+
+    const handleNavClick = (e, link) => {
+        e.preventDefault();
+        closeMenu();
+
+        if (link.path === '/events') {
+            navigate('/events');
+            return;
+        }
+
+        const doScroll = (section) => {
+            if (section === 'hero') scrollToSection(heroSectionRef);
+            if (section === 'about') scrollToSection(aboutSectionRef);
+            if (section === 'footer') scrollToSection(footerRef);
+        };
+
+        if (location.pathname !== '/') {
+            navigate('/');
+            setTimeout(() => doScroll(link.section), 100);
+        } else {
+            doScroll(link.section);
+        }
+    };
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const closeMenu = () => setIsMenuOpen(false);
@@ -70,18 +96,18 @@ const Navbar = () => {
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                                     >
-                                        <Link
-                                            to={link.path}
+                                        <a
+                                            href={link.path}
+                                            onClick={(e) => handleNavClick(e, link)}
                                             className={`text-4xl font-bold transition-colors duration-300
-                                                ${location.pathname === link.path
+                                                ${location.pathname === link.path && !link.section
                                                     ? 'text-blue-400'
                                                     : 'text-gray-200 hover:text-white'
                                                 }
                                             `}
-                                            onClick={closeMenu}
                                         >
                                             {link.name}
-                                        </Link>
+                                        </a>
                                     </motion.div>
                                 ))}
                             </div>
@@ -104,18 +130,18 @@ const Navbar = () => {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                                     >
-                                        <Link
-                                            to={link.path}
+                                        <a
+                                            href={link.path}
+                                            onClick={(e) => handleNavClick(e, link)}
                                             className={`text-3xl font-bold transition-colors duration-300
-                                                ${location.pathname === link.path
+                                                ${location.pathname === link.path && !link.section
                                                     ? 'text-blue-400'
                                                     : 'text-gray-200 hover:text-white'
                                                 }
                                             `}
-                                            onClick={closeMenu}
                                         >
                                             {link.name}
-                                        </Link>
+                                        </a>
                                     </motion.div>
                                 ))}
                             </div>

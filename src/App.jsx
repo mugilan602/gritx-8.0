@@ -1,30 +1,33 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
-import Events from "./pages/Events";
-import EventPage from './pages/EventPage';
-import ParticlesComponent from './components/Particles';
-import Footer from './components/Footer';
+import Events from './pages/Events';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Particles from './components/Particles';
+import { useSectionContext } from './context/SectionContext.jsx';
+import AnimatedEventPage from './components/AnimatedEventPage.jsx';
+import EventPage from './pages/EventPage.jsx';
 
 function App() {
+  const { heroSectionRef, aboutSectionRef, footerRef } = useSectionContext();
+
   return (
-    <Router>
-      {/* Keep Particles always in the background */}
-      <ParticlesComponent id="particles" />
-
-      {/* Navbar with sticky behavior */}
+    <div className="bg-gray-900">
+      <Particles />
       <Navbar />
-
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/eventpage" element={<EventPage />} />
-      </Routes>
-
-      {/* Footer appears on all pages */}
-      <Footer />
-    </Router>
+      <main>
+        <Routes>
+          <Route path="/" element={<Landing heroSectionRef={heroSectionRef} aboutSectionRef={aboutSectionRef} />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/eventpage" element={<EventPage />} />
+          {/* other routes */}
+        </Routes>
+      </main>
+      <div ref={footerRef}>
+        <Footer />
+      </div>
+    </div>
   );
 }
 

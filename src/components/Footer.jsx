@@ -1,7 +1,30 @@
 import React from 'react';
 import { FaInstagram, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { useSectionContext } from '../context/SectionContext.jsx';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Footer = () => {
+    const { heroSectionRef, aboutSectionRef, footerRef, scrollToSection } = useSectionContext();
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const handleNavClick = (e, section) => {
+        e.preventDefault();
+
+        const doScroll = (section) => {
+            if (section === 'hero') scrollToSection(heroSectionRef);
+            if (section === 'about') scrollToSection(aboutSectionRef);
+            if (section === 'footer') scrollToSection(footerRef);
+        };
+
+        if (location.pathname !== '/') {
+            navigate('/');
+            setTimeout(() => doScroll(section), 100);
+        } else {
+            doScroll(section);
+        }
+    };
+
     return (
         <footer className='bg-gray-900 text-white pt-8 pb-6 relative z-10'>
             <div className='container mx-auto flex flex-col lg:flex-row justify-between items-start px-4 lg:px-8'>
@@ -54,7 +77,7 @@ const Footer = () => {
                 <div className='w-full lg:w-1/3 mb-8 lg:mb-0 flex flex-col items-center'>
                     <div className='text-center'>
                         <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3'>GRITX</h1>
-                        
+
                     </div>
 
                     {/* Team Members */}
@@ -77,22 +100,22 @@ const Footer = () => {
                     <div className='mb-6'>
                         <ul className='flex flex-wrap justify-center lg:justify-end gap-4 lg:flex-col lg:gap-3 text-gray-300'>
                             <li>
-                                <a href="/" className='hover:text-white transition-colors duration-200 text-sm lg:text-base'>
+                                <a href="/" onClick={(e) => handleNavClick(e, 'hero')} className='hover:text-white transition-colors duration-200 text-sm lg:text-base'>
                                     Home
                                 </a>
                             </li>
                             <li>
-                                <a href="/events" className='hover:text-white transition-colors duration-200 text-sm lg:text-base'>
+                                <a href="/events" onClick={() => navigate('/events')} className='hover:text-white transition-colors duration-200 text-sm lg:text-base'>
                                     Events
                                 </a>
                             </li>
                             <li>
-                                <a href="/about" className='hover:text-white transition-colors duration-200 text-sm lg:text-base'>
+                                <a href="/about" onClick={(e) => handleNavClick(e, 'about')} className='hover:text-white transition-colors duration-200 text-sm lg:text-base'>
                                     About
                                 </a>
                             </li>
                             <li>
-                                <a href="/contact" className='hover:text-white transition-colors duration-200 text-sm lg:text-base'>
+                                <a href="/contact" onClick={(e) => handleNavClick(e, 'footer')} className='hover:text-white transition-colors duration-200 text-sm lg:text-base'>
                                     Contact
                                 </a>
                             </li>

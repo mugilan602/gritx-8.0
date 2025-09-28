@@ -5,6 +5,7 @@ import Lenis from 'https://esm.sh/@studio-freight/lenis';
 import { motion, Reorder } from 'framer-motion';
 import ProgramOfficers from '../components/ProgramOfficers';
 import MainLeads from '../components/MainLeads';
+import { useSectionContext } from '../context/SectionContext.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,10 +16,8 @@ function generateInitialLogos() {
     }));
 }
 
-export default function Landing() {
+export default function Landing({ heroSectionRef, aboutSectionRef }) {
     const mainRef = useRef(null);
-    const heroSectionRef = useRef(null);
-    const aboutSectionRef = useRef(null);
     const eventsSectionRef = useRef(null);
     const placeholderRef = useRef(null);
     const iRef = useRef(null);
@@ -28,6 +27,24 @@ export default function Landing() {
 
     const circleRef = useRef(null);
     const [radius, setRadius] = useState(140);
+
+    // Update radius based on screen size
+    useEffect(() => {
+        const updateRadius = () => {
+            if (window.innerWidth < 768) { // Mobile screens
+                setRadius(120);
+            } else {
+                setRadius(140);
+            }
+        };
+
+        // Set initial radius
+        updateRadius();
+
+        // Listen for window resize
+        window.addEventListener('resize', updateRadius);
+        return () => window.removeEventListener('resize', updateRadius);
+    }, []);
 
     // compute x/y for a given index on the circle
     const getPosition = (index, count, r) => {
@@ -99,22 +116,24 @@ export default function Landing() {
             const mainRect = mainRef.current.getBoundingClientRect();
             const logoContainer = circleRef.current;
             const logoRect = logoContainer.getBoundingClientRect();
+            const placeholderRect = placeholder.getBoundingClientRect();
 
-            const initialTop = logoRect.top - mainRect.top + logoRect.height / 2 - 40;
-            const initialLeft = logoRect.left - mainRect.left + logoRect.width / 2 - 40;
+            const initialTop = logoRect.top - mainRect.top + logoRect.height / 2 - (placeholderRect.height / 2);
+            const initialLeft = logoRect.left - mainRect.left + logoRect.width / 2 - (placeholderRect.width / 2);
 
             const aboutDestRect = aboutDestination.getBoundingClientRect();
-            const aboutFinalTop = aboutDestRect.top - mainRect.top + aboutDestRect.height / 2 - 50;
-            const aboutFinalLeft = aboutDestRect.left - mainRect.left + aboutDestRect.width / 2 - 50;
+            const aboutFinalTop = aboutDestRect.top - mainRect.top + aboutDestRect.height / 2 - (placeholderRect.height / 2);
+            const aboutFinalLeft = aboutDestRect.left - mainRect.left + aboutDestRect.width / 2 - (placeholderRect.width / 2);
 
             const eventsDestRect = eventsDestination.getBoundingClientRect();
-            const eventsFinalTop = eventsDestRect.top - mainRect.top + eventsDestRect.height / 2 - 50;
-            const eventsFinalLeft = eventsDestRect.left - mainRect.left + eventsDestRect.width / 2 - 50;
+            const eventsFinalTop = eventsDestRect.top - mainRect.top + eventsDestRect.height / 2 - (placeholderRect.height / 2);
+            const eventsFinalLeft = eventsDestRect.left - mainRect.left + eventsDestRect.width / 2 - (placeholderRect.width / 2);
 
             gsap.set(placeholder, {
                 top: initialTop,
                 left: initialLeft,
                 scale: 1,
+                transformOrigin: '50% 50%',
             });
 
             const masterTimeline = gsap.timeline({
@@ -180,7 +199,7 @@ export default function Landing() {
 
             {/* Hero Section */}
             <section ref={heroSectionRef} className="min-h-screen w-full flex flex-col items-center justify-center px-4">
-                <div className="flex flex-col md:flex-row w-full items-center justify-center space-y-8 md:space-y-0 md:space-x-16">
+                <div className="flex flex-col md:flex-row w-full items-center justify-center md:space-y-0 md:space-x-16">
                     {/* Left Column: GRITX Title */}
                     <div className="flex flex-col items-center">
                         <div className="text-center text-xs md:text-sm uppercase tracking-widest text-gray-300">
@@ -203,7 +222,7 @@ export default function Landing() {
 
                     {/* Right Column: Circular animated logos */}
                     <motion.div
-                        className="relative w-80 h-80 md:w-96 md:h-96 flex items-center justify-center"
+                        className="relative w-64 h-64 md:w-96 md:h-96 flex items-center justify-center  sm:my-0 my-16"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1 }}
@@ -243,25 +262,25 @@ export default function Landing() {
                 {/* Countdown Timer */}
                 <div className="text-center">
                     <motion.div
-                        className="flex flex-wrap justify-center gap-8"
+                        className="flex flex-wrap justify-center gap-4 sm:gap-8"
 
                     >
                         <div className="flex flex-col items-center">
-                            <div className="text-4xl md:text-5xl font-bold text-cyan-400">{timeLeft.days}</div>
+                            <div className="text-2xl md:text-5xl font-bold text-cyan-400">{timeLeft.days}</div>
                             <div className="text-sm uppercase tracking-wider text-gray-400">Days</div>
                         </div>
                         <div className="text-4xl md:text-5xl font-bold text-gray-600 self-start">:</div>
                         <div className="flex flex-col items-center">
-                            <div className="text-4xl md:text-5xl font-bold text-cyan-400">{timeLeft.hours}</div>
+                            <div className="text-2xl md:text-5xl font-bold text-cyan-400">{timeLeft.hours}</div>
                             <div className="text-sm uppercase tracking-wider text-gray-400">Hours</div>
                         </div>
                         <div className="text-4xl md:text-5xl font-bold text-gray-600 self-start">:</div>
                         <div className="flex flex-col items-center">
-                            <div className="text-4xl md:text-5xl font-bold text-cyan-400">{timeLeft.minutes}</div>
+                            <div className="text-2xl md:text-5xl font-bold text-cyan-400">{timeLeft.minutes}</div>
                             <div className="text-sm uppercase tracking-wider text-gray-400">Minutes</div>
                         </div>
-                        <div className="text-4xl md:text-5xl font-bold text-gray-600 self-start">:</div>
-                        <div className="flex flex-col items-center">
+                        <div className="sm:block hidden text-4xl md:text-5xl font-bold text-gray-600 self-start">:</div>
+                        <div className="hidden sm:flex flex-col items-center">
                             <div className="text-4xl md:text-5xl font-bold text-cyan-400">{timeLeft.seconds}</div>
                             <div className="text-sm uppercase tracking-wider text-gray-400">Seconds</div>
                         </div>
@@ -270,7 +289,7 @@ export default function Landing() {
             </section>
 
             {/* About Section */}
-            <section ref={aboutSectionRef} className="min-h-screen w-full flex flex-col md:flex-row items-center justify-center py-16 px-4">
+            <section ref={aboutSectionRef} className="min-h-screen w-full flex flex-col space-y-20 sm:space-y-0 md:flex-row items-center justify-center py-16 px-4">
                 <div ref={aboutDestinationRef} className="w-full md:w-1/2 flex items-center justify-center min-h-[200px] sm:min-h-[300px]"></div>
 
                 <div className="w-full md:w-1/2 pr-0 md:pr-8 mb-8 md:mb-0">

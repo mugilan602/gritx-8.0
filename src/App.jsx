@@ -5,6 +5,7 @@ import Events from './pages/Events';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Particles from './components/Particles';
+import ScrollToTop from './components/ScrollToTop';
 import { useSectionContext } from './context/SectionContext.jsx';
 import AnimatedEventPage from './components/AnimatedEventPage.jsx';
 import EventPage from './pages/EventPage.jsx';
@@ -49,6 +50,7 @@ function App() {
   return (
     <div className='bg-black'>
       <Particles />
+      <ScrollToTop />
       <Navbar />
       <main>
         <Routes>

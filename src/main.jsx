@@ -5,6 +5,11 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { SectionProvider } from './context/SectionContext.jsx';
 
+// Prevent browser from restoring scroll position on page reload/navigation
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>

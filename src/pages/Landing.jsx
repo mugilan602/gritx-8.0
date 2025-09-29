@@ -192,6 +192,9 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             smoothTouch: true,
         });
 
+        // Make Lenis instance globally available for ScrollToTop component
+        window.lenis = lenis;
+
         const placeholder = placeholderRef.current;
         const heroEl = heroSectionRef?.current;
         const aboutEl = aboutSectionRef?.current;
@@ -486,6 +489,10 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             cancelAnimationFrame(rafId);
             window.removeEventListener('resize', handleResize);
             window.removeEventListener('orientationchange', handleResize);
+            // Clean up global reference
+            if (window.lenis === lenis) {
+                window.lenis = null;
+            }
         };
     }, []);
 

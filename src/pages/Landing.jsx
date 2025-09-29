@@ -101,45 +101,96 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
         const mainContainer = mainRef.current;
         const circleEl = circleRef.current;
 
-        // Helper to get accurate viewport position for fixed positioning
+        // Helper to detect actual navbar/header height dynamically
+        const getNavbarHeight = () => {
+            // Try to detect fixed navbar elements
+            const navbar = document.querySelector('nav, .navbar, .header, [class*="nav"]');
+            if (navbar && window.getComputedStyle(navbar).position === 'fixed') {
+                return navbar.offsetHeight;
+            }
+            // Fallback to reasonable default
+            return 80;
+        };
+
+        // Helper to get accurate viewport position for fixed positioning with center alignment
         const getViewportPos = (target) => {
             if (!target) return { x: 0, y: 0 };
             const targetBounds = target.getBoundingClientRect();
-            const placeholderSize = window.innerWidth < 640 ? 80 : 100; // responsive size
 
-            // Calculate center position relative to current viewport
-            // For fixed positioning, getBoundingClientRect already gives viewport-relative coords
+            // Calculate center position of target element relative to viewport
+            const centerX = targetBounds.left + (targetBounds.width / 2);
+            const centerY = targetBounds.top + (targetBounds.height / 2);
+
+            // Dynamic navbar/header detection or fallback to safe margin
+            const navbarHeight = getNavbarHeight();
+            const minTopDistance = navbarHeight + 40; // Navbar height + extra safety margin
+
+            // Ensure placeholder center is never too close to top edge
+            const safeY = Math.max(centerY, minTopDistance);
+
             return {
-                x: targetBounds.left + (targetBounds.width / 2) - (placeholderSize / 2),
-                y: targetBounds.top + (targetBounds.height / 2) - (placeholderSize / 2),
+                x: centerX,
+                y: safeY,
             };
         };
 
-        // Helper to constrain position within viewport bounds
-        const constrainToViewport = (x, y, size) => {
-            const maxX = window.innerWidth - size;
-            const maxY = window.innerHeight - size;
+        // Helper to constrain position within viewport bounds with scale awareness and safe margins
+        const constrainToViewport = (x, y, baseSize, currentScale) => {
+            // Calculate actual scaled dimensions
+            const scaledSize = baseSize * currentScale;
+            const halfScaledSize = scaledSize / 2;
+
+            // Dynamic safe margins based on viewport and navbar
+            const navbarHeight = getNavbarHeight();
+            const topSafeMargin = navbarHeight + 30; // Navbar + extra safety
+            const sideSafeMargin = 25; // Side margins for edge safety
+            const bottomSafeMargin = 30; // Bottom margin for safety
+
+            // Calculate safe boundaries for the placeholder center point
+            const minX = halfScaledSize + sideSafeMargin;
+            const maxX = window.innerWidth - halfScaledSize - sideSafeMargin;
+            const minY = halfScaledSize + topSafeMargin; // Critical: prevent top clipping
+            const maxY = window.innerHeight - halfScaledSize - bottomSafeMargin;
+
+            // Constrain the center position within safe boundaries
+            const constrainedX = Math.max(minX, Math.min(x, maxX));
+            const constrainedY = Math.max(minY, Math.min(y, maxY));
+
             return {
-                x: Math.max(0, Math.min(x, maxX)),
-                y: Math.max(0, Math.min(y, maxY))
+                x: constrainedX,
+                y: constrainedY
             };
         };
 
-        // Initialize placeholder positioning system
+        // Initialize placeholder positioning system with enhanced safety
         const initializePlaceholder = () => {
             if (!placeholder || !circleEl) return;
 
             const placeholderSize = window.innerWidth < 640 ? 80 : 100;
             const initialPos = getViewportPos(circleEl);
-            const constrainedPos = constrainToViewport(initialPos.x, initialPos.y, placeholderSize);
+            const constrainedPos = constrainToViewport(initialPos.x, initialPos.y, placeholderSize, 1);
 
-            // Set initial position with proper styling
-            placeholder.style.transform = `translate(${constrainedPos.x}px, ${constrainedPos.y}px) scale(1)`;
+            // Convert center-based coordinates to top-left for CSS transform
+            const halfSize = placeholderSize / 2;
+            const translateX = constrainedPos.x - halfSize;
+            const translateY = constrainedPos.y - halfSize;
+
+            // Ensure initialization respects navbar and safe margins
+            const navbarHeight = getNavbarHeight();
+            const minTranslateY = navbarHeight + 10;
+            const safeTranslateY = Math.max(translateY, minTranslateY);
+
+            // Set initial position with enhanced styling and guaranteed safe positioning
+            placeholder.style.transform = `translate(${translateX}px, ${safeTranslateY}px) scale(1)`;
             placeholder.style.transformOrigin = '50% 50%';
             placeholder.style.willChange = 'transform, opacity';
-            // placeholder.style.transition = 'opacity 100ms cubic-bezier(0.4, 0, 0.2, 1)'; // Smooth fade transition
-            placeholder.style.opacity = '1'; // Ensure visible on init
+            placeholder.style.opacity = '1';
             placeholder.style.visibility = 'visible';
+
+            // Add smooth transition for position changes (but not on init)
+            setTimeout(() => {
+                placeholder.style.transition = 'none'; // Ensure no transition conflicts
+            }, 150);
         };
 
         let ticking = false;
@@ -248,11 +299,22 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                 opacity = 0;
             }
 
-            // Apply viewport constraints to prevent clipping
-            const constrainedPos = constrainToViewport(x, y, placeholderSize * scale);
+            // Apply scale-aware viewport constraints to prevent clipping
+            const constrainedPos = constrainToViewport(x, y, placeholderSize, scale);
 
-            // Apply smooth transform and opacity with optimized positioning
-            placeholder.style.transform = `translate(${constrainedPos.x}px, ${constrainedPos.y}px) scale(${scale})`;
+            // Convert center-based coordinates to top-left for CSS transform
+            // The constrainToViewport function now returns the safe center position
+            const halfSize = placeholderSize / 2;
+            const translateX = constrainedPos.x - halfSize;
+            const translateY = constrainedPos.y - halfSize;
+
+            // Additional safety check to ensure proper positioning
+            const navbarHeight = getNavbarHeight();
+            const absoluteMinY = navbarHeight + 10; // Absolute minimum from top
+            const safeTranslateY = Math.max(translateY, absoluteMinY);
+
+            // Apply smooth transform and opacity with guaranteed clipping-free positioning
+            placeholder.style.transform = `translate(${translateX}px, ${safeTranslateY}px) scale(${scale})`;
 
             // Update opacity and visibility for performance
             if (opacity <= 0) {

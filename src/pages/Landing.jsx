@@ -33,11 +33,29 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
     // ✅ FIX: Set a CSS variable for the viewport height to handle mobile browser UI.
     useEffect(() => {
         const setVh = () => {
-            document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+            // Use visualViewport if available (ignores browser UI), fallback to innerHeight
+            const height = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+            document.documentElement.style.setProperty('--vh', `${height * 0.01}px`);
         };
+
         setVh();
-        window.addEventListener('resize', setVh);
-        return () => window.removeEventListener('resize', setVh);
+
+        // Listen to visualViewport changes if supported
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', setVh);
+            window.visualViewport.addEventListener('scroll', setVh);
+        } else {
+            window.addEventListener('resize', setVh);
+        }
+
+        return () => {
+            if (window.visualViewport) {
+                window.visualViewport.removeEventListener('resize', setVh);
+                window.visualViewport.removeEventListener('scroll', setVh);
+            } else {
+                window.removeEventListener('resize', setVh);
+            }
+        };
     }, []);
 
     // Update radius for circular logos based on screen size
@@ -117,24 +135,17 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             if (!target) return { x: 0, y: 0 };
             const targetBounds = target.getBoundingClientRect();
 
-            // Calculate center position of target element relative to viewport
+            // Calculate exact center position of target element relative to viewport
             const centerX = targetBounds.left + (targetBounds.width / 2);
             const centerY = targetBounds.top + (targetBounds.height / 2);
 
-            // Dynamic navbar/header detection or fallback to safe margin
-            const navbarHeight = getNavbarHeight();
-            const minTopDistance = navbarHeight + 60; // Navbar height + extra safety margin (increased for larger logo)
-
-            // Ensure placeholder center is never too close to top edge
-            const safeY = Math.max(centerY, minTopDistance);
-
+            // Return the exact center coordinates without premature constraints
+            // Constraints will be applied later in constrainToViewport()
             return {
                 x: centerX,
-                y: safeY,
+                y: centerY,
             };
-        };
-
-        // Helper to constrain position within viewport bounds with scale awareness and safe margins
+        };        // Helper to constrain position within viewport bounds with scale awareness and safe margins
         const constrainToViewport = (x, y, baseSize, currentScale) => {
             // Calculate actual scaled dimensions
             const scaledSize = baseSize * currentScale;
@@ -146,15 +157,33 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             const sideSafeMargin = 35; // Side margins for edge safety (increased for larger logo)
             const bottomSafeMargin = 45; // Bottom margin for safety (increased for larger logo)
 
-            // Calculate safe boundaries for the placeholder center point
-            const minX = halfScaledSize + sideSafeMargin;
-            const maxX = window.innerWidth - halfScaledSize - sideSafeMargin;
-            const minY = halfScaledSize + topSafeMargin; // Critical: prevent top clipping
-            const maxY = window.innerHeight - halfScaledSize - bottomSafeMargin;
+            // Calculate safe boundaries for the logo center point using visual viewport
+            const viewportWidth = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+            const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
 
-            // Constrain the center position within safe boundaries
-            const constrainedX = Math.max(minX, Math.min(x, maxX));
-            const constrainedY = Math.max(minY, Math.min(y, maxY));
+            const minX = halfScaledSize + sideSafeMargin;
+            const maxX = viewportWidth - halfScaledSize - sideSafeMargin;
+            const minY = halfScaledSize + topSafeMargin; // Critical: prevent top clipping
+            const maxY = viewportHeight - halfScaledSize - bottomSafeMargin;
+
+            // Only constrain if the desired position would cause clipping
+            // Otherwise, preserve the exact center position for perfect alignment
+            let constrainedX = x;
+            let constrainedY = y;
+
+            // Only apply X constraint if necessary
+            if (x < minX) {
+                constrainedX = minX;
+            } else if (x > maxX) {
+                constrainedX = maxX;
+            }
+
+            // Only apply Y constraint if necessary
+            if (y < minY) {
+                constrainedY = minY;
+            } else if (y > maxY) {
+                constrainedY = maxY;
+            }
 
             return {
                 x: constrainedX,
@@ -175,13 +204,9 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             const translateX = constrainedPos.x - halfSize;
             const translateY = constrainedPos.y - halfSize;
 
-            // Ensure initialization respects navbar and safe margins
-            const navbarHeight = getNavbarHeight();
-            const minTranslateY = navbarHeight + 15; // Increased for larger logo
-            const safeTranslateY = Math.max(translateY, minTranslateY);
-
-            // Set initial position with enhanced styling and guaranteed safe positioning
-            placeholder.style.transform = `translate(${translateX}px, ${safeTranslateY}px) scale(1)`;
+            // Set initial position with enhanced styling and perfect centering
+            // The constrainToViewport function already handles safety margins
+            placeholder.style.transform = `translate(${translateX}px, ${translateY}px) scale(1)`;
             placeholder.style.transformOrigin = '50% 50%';
             placeholder.style.willChange = 'transform, opacity';
             placeholder.style.opacity = '1';
@@ -206,7 +231,8 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             const eventsTop = eventsEl.offsetTop;
             const eventsHeight = eventsEl.offsetHeight;
             const placeholderSize = window.innerWidth < 640 ? 120 : 150;
-            const viewportHeight = window.innerHeight;
+            // Use visualViewport height if available to ignore mobile browser address bar
+            const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
 
             // Get current viewport positions for all targets
             const initialPos = getViewportPos(circleEl);
@@ -303,18 +329,14 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             const constrainedPos = constrainToViewport(x, y, placeholderSize, scale);
 
             // Convert center-based coordinates to top-left for CSS transform
-            // The constrainToViewport function now returns the safe center position
+            // Since we use transform-origin: 50% 50%, we offset by half the base size (not scaled size)
             const halfSize = placeholderSize / 2;
             const translateX = constrainedPos.x - halfSize;
             const translateY = constrainedPos.y - halfSize;
 
-            // Additional safety check to ensure proper positioning
-            const navbarHeight = getNavbarHeight();
-            const absoluteMinY = navbarHeight + 15; // Absolute minimum from top (increased for larger logo)
-            const safeTranslateY = Math.max(translateY, absoluteMinY);
-
-            // Apply smooth transform and opacity with guaranteed clipping-free positioning
-            placeholder.style.transform = `translate(${translateX}px, ${safeTranslateY}px) scale(${scale})`;
+            // Apply smooth transform and opacity with perfect centering
+            // Remove the additional safety check that was interfering with centering
+            placeholder.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
 
             // Update opacity and visibility for performance
             if (opacity <= 0) {

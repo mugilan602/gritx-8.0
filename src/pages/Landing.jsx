@@ -108,8 +108,8 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             if (navbar && window.getComputedStyle(navbar).position === 'fixed') {
                 return navbar.offsetHeight;
             }
-            // Fallback to reasonable default
-            return 80;
+            // Fallback to reasonable default (increased for larger logo)
+            return 100;
         };
 
         // Helper to get accurate viewport position for fixed positioning with center alignment
@@ -123,7 +123,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
 
             // Dynamic navbar/header detection or fallback to safe margin
             const navbarHeight = getNavbarHeight();
-            const minTopDistance = navbarHeight + 40; // Navbar height + extra safety margin
+            const minTopDistance = navbarHeight + 60; // Navbar height + extra safety margin (increased for larger logo)
 
             // Ensure placeholder center is never too close to top edge
             const safeY = Math.max(centerY, minTopDistance);
@@ -142,9 +142,9 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
 
             // Dynamic safe margins based on viewport and navbar
             const navbarHeight = getNavbarHeight();
-            const topSafeMargin = navbarHeight + 30; // Navbar + extra safety
-            const sideSafeMargin = 25; // Side margins for edge safety
-            const bottomSafeMargin = 30; // Bottom margin for safety
+            const topSafeMargin = navbarHeight + 45; // Navbar + extra safety (increased for larger logo)
+            const sideSafeMargin = 35; // Side margins for edge safety (increased for larger logo)
+            const bottomSafeMargin = 45; // Bottom margin for safety (increased for larger logo)
 
             // Calculate safe boundaries for the placeholder center point
             const minX = halfScaledSize + sideSafeMargin;
@@ -166,7 +166,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
         const initializePlaceholder = () => {
             if (!placeholder || !circleEl) return;
 
-            const placeholderSize = window.innerWidth < 640 ? 80 : 100;
+            const placeholderSize = window.innerWidth < 640 ? 120 : 150;
             const initialPos = getViewportPos(circleEl);
             const constrainedPos = constrainToViewport(initialPos.x, initialPos.y, placeholderSize, 1);
 
@@ -177,7 +177,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
 
             // Ensure initialization respects navbar and safe margins
             const navbarHeight = getNavbarHeight();
-            const minTranslateY = navbarHeight + 10;
+            const minTranslateY = navbarHeight + 15; // Increased for larger logo
             const safeTranslateY = Math.max(translateY, minTranslateY);
 
             // Set initial position with enhanced styling and guaranteed safe positioning
@@ -205,7 +205,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             const aboutHeight = aboutEl.offsetHeight;
             const eventsTop = eventsEl.offsetTop;
             const eventsHeight = eventsEl.offsetHeight;
-            const placeholderSize = window.innerWidth < 640 ? 80 : 100;
+            const placeholderSize = window.innerWidth < 640 ? 120 : 150;
             const viewportHeight = window.innerHeight;
 
             // Get current viewport positions for all targets
@@ -310,7 +310,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
 
             // Additional safety check to ensure proper positioning
             const navbarHeight = getNavbarHeight();
-            const absoluteMinY = navbarHeight + 10; // Absolute minimum from top
+            const absoluteMinY = navbarHeight + 15; // Absolute minimum from top (increased for larger logo)
             const safeTranslateY = Math.max(translateY, absoluteMinY);
 
             // Apply smooth transform and opacity with guaranteed clipping-free positioning
@@ -388,7 +388,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                     backfaceVisibility: 'hidden',
                     perspective: '1000px'
                 }}
-                className="fixed top-0 left-0 w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] z-50 pointer-events-none"
+                className="fixed top-0 left-0 w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] z-50 pointer-events-none"
             >
                 <img
                     src="/logo.png"

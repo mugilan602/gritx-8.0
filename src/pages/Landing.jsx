@@ -136,8 +136,10 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             // Set initial position with proper styling
             placeholder.style.transform = `translate(${constrainedPos.x}px, ${constrainedPos.y}px) scale(1)`;
             placeholder.style.transformOrigin = '50% 50%';
-            placeholder.style.willChange = 'transform';
-            placeholder.style.transition = 'none'; // Ensure no unwanted transitions
+            placeholder.style.willChange = 'transform, opacity';
+            // placeholder.style.transition = 'opacity 100ms cubic-bezier(0.4, 0, 0.2, 1)'; // Smooth fade transition
+            placeholder.style.opacity = '1'; // Ensure visible on init
+            placeholder.style.visibility = 'visible';
         };
 
         let ticking = false;
@@ -163,6 +165,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             let x = initialPos.x;
             let y = initialPos.y;
             let scale = 1;
+            let opacity = 1; // Track opacity for fade effect
 
             // Define scroll ranges with responsive triggers
             const aboutTriggerStart = aboutTop - viewportHeight * 0.7;
@@ -170,12 +173,17 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             const eventsTriggerStart = eventsTop - viewportHeight * 0.7;
             const eventsTriggerEnd = eventsTop + eventsHeight * 0.3;
 
+            // Define fade-out zone after events section
+            const fadeOutStart = eventsTriggerEnd + viewportHeight * 0.1; // Start fading 10% viewport after events end
+            const fadeOutEnd = fadeOutStart + viewportHeight * 0.2; // Complete fade over 20% viewport distance
+
             // Animation state machine with smooth transitions
             if (scrollY < aboutTriggerStart) {
                 // Before about section - stay at hero position
                 x = initialPos.x;
                 y = initialPos.y;
                 scale = 1;
+                opacity = 1;
 
             } else if (scrollY >= aboutTriggerStart && scrollY < aboutTriggerEnd) {
                 // Hero to About transition
@@ -190,12 +198,14 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                 x = initialPos.x + (aboutPos.x - initialPos.x) * easedProgress;
                 y = initialPos.y + (aboutPos.y - initialPos.y) * easedProgress;
                 scale = 1 + (1.5 * easedProgress); // Scale from 1 to 2.5
+                opacity = 1;
 
             } else if (scrollY >= aboutTriggerEnd && scrollY < eventsTriggerStart) {
                 // Between about and events - stay at about position
                 x = aboutPos.x;
                 y = aboutPos.y;
                 scale = 2.5;
+                opacity = 1;
 
             } else if (scrollY >= eventsTriggerStart && scrollY < eventsTriggerEnd) {
                 // About to Events transition
@@ -210,19 +220,48 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                 x = aboutPos.x + (eventsPos.x - aboutPos.x) * easedProgress;
                 y = aboutPos.y + (eventsPos.y - aboutPos.y) * easedProgress;
                 scale = 2.5 - (1.0 * easedProgress); // Scale from 2.5 to 1.5
+                opacity = 1;
 
-            } else {
-                // After events section - stay at final position
+            } else if (scrollY >= eventsTriggerEnd && scrollY < fadeOutStart) {
+                // Just after events section - stay at final position, fully visible
                 x = eventsPos.x;
                 y = eventsPos.y;
                 scale = 1.5;
+                opacity = 1;
+
+            } else if (scrollY >= fadeOutStart && scrollY < fadeOutEnd) {
+                // Fade-out transition zone
+                x = eventsPos.x;
+                y = eventsPos.y;
+                scale = 1.5;
+
+                // Calculate fade progress and apply smooth easing
+                const fadeProgress = Math.min(1, Math.max(0, (scrollY - fadeOutStart) / (fadeOutEnd - fadeOutStart)));
+                const easedFadeProgress = 1 - Math.pow(1 - fadeProgress, 3); // Ease-out cubic
+                opacity = 1 - easedFadeProgress; // Fade from 1 to 0
+
+            } else {
+                // Completely past events section - hidden
+                x = eventsPos.x;
+                y = eventsPos.y;
+                scale = 1.5;
+                opacity = 0;
             }
 
             // Apply viewport constraints to prevent clipping
             const constrainedPos = constrainToViewport(x, y, placeholderSize * scale);
 
-            // Apply smooth transform with optimized positioning
+            // Apply smooth transform and opacity with optimized positioning
             placeholder.style.transform = `translate(${constrainedPos.x}px, ${constrainedPos.y}px) scale(${scale})`;
+
+            // Update opacity and visibility for performance
+            if (opacity <= 0) {
+                placeholder.style.opacity = '0';
+                placeholder.style.visibility = 'hidden';
+            } else {
+                placeholder.style.opacity = opacity.toString();
+                placeholder.style.visibility = 'visible';
+            }
         };
 
         const onScroll = () => {

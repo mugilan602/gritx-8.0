@@ -380,7 +380,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
 
     return (
         <div ref={mainRef} className="text-white font-sans overflow-x-hidden relative">
-            {/* Animated placeholder for all screens - fixed positioning with enhanced styling */}
+            {/* Animated logo placeholder for all screens - fixed positioning with enhanced styling */}
             <div
                 ref={placeholderRef}
                 style={{
@@ -388,8 +388,18 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                     backfaceVisibility: 'hidden',
                     perspective: '1000px'
                 }}
-                className="fixed top-0 left-0 w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] bg-gradient-to-br from-cyan-400 to-blue-600 z-50 rounded-lg shadow-2xl pointer-events-none border border-cyan-300/30"
-            ></div>
+                className="fixed top-0 left-0 w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] z-50 pointer-events-none"
+            >
+                <img
+                    src="/logo.png"
+                    alt="Logo"
+                    className="w-full h-full object-contain rounded-lg shadow-2xl"
+                    style={{
+                        filter: 'drop-shadow(0 25px 25px rgb(0 0 0 / 0.15))',
+                        imageRendering: 'crisp-edges'
+                    }}
+                />
+            </div>
 
             {/* Hero Section */}
             {/* ✅ FIX: Added the 'full-vh' class for reliable height on mobile */}

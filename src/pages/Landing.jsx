@@ -130,14 +130,18 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             return 100;
         };
 
-        // Helper to get accurate viewport position for fixed positioning with center alignment
+        // Helper to get accurate viewport position for fixed positioning with perfect center alignment
         const getViewportPos = (target) => {
             if (!target) return { x: 0, y: 0 };
             const targetBounds = target.getBoundingClientRect();
 
             // Calculate exact center position of target element relative to viewport
+            // Ensure we get the true geometric center of the destination element
             const centerX = targetBounds.left + (targetBounds.width / 2);
             const centerY = targetBounds.top + (targetBounds.height / 2);
+
+            // For debugging: log the center positions to ensure accuracy
+            // console.log(`Target center: ${centerX}, ${centerY}, bounds:`, targetBounds);
 
             // Return the exact center coordinates without premature constraints
             // Constraints will be applied later in constrainToViewport()
@@ -153,9 +157,9 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
 
             // Dynamic safe margins based on viewport and navbar
             const navbarHeight = getNavbarHeight();
-            const topSafeMargin = navbarHeight + 45; // Navbar + extra safety (increased for larger logo)
-            const sideSafeMargin = 35; // Side margins for edge safety (increased for larger logo)
-            const bottomSafeMargin = 45; // Bottom margin for safety (increased for larger logo)
+            const topSafeMargin = navbarHeight + 25; // Navbar + minimal safety for better centering
+            const sideSafeMargin = 25; // Reduced side margins for better centering
+            const bottomSafeMargin = 25; // Reduced bottom margin for better centering
 
             // Calculate safe boundaries for the logo center point using visual viewport
             const viewportWidth = window.visualViewport ? window.visualViewport.width : window.innerWidth;
@@ -166,22 +170,21 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             const minY = halfScaledSize + topSafeMargin; // Critical: prevent top clipping
             const maxY = viewportHeight - halfScaledSize - bottomSafeMargin;
 
-            // Only constrain if the desired position would cause clipping
-            // Otherwise, preserve the exact center position for perfect alignment
+            // Prioritize perfect centering - only constrain if absolutely necessary to prevent clipping
             let constrainedX = x;
             let constrainedY = y;
 
-            // Only apply X constraint if necessary
-            if (x < minX) {
+            // Only apply X constraint if the logo would be clipped
+            if (x - halfScaledSize < sideSafeMargin) {
                 constrainedX = minX;
-            } else if (x > maxX) {
+            } else if (x + halfScaledSize > viewportWidth - sideSafeMargin) {
                 constrainedX = maxX;
             }
 
-            // Only apply Y constraint if necessary
-            if (y < minY) {
+            // Only apply Y constraint if the logo would be clipped
+            if (y - halfScaledSize < topSafeMargin) {
                 constrainedY = minY;
-            } else if (y > maxY) {
+            } else if (y + halfScaledSize > viewportHeight - bottomSafeMargin) {
                 constrainedY = maxY;
             }
 
@@ -191,12 +194,16 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             };
         };
 
-        // Initialize placeholder positioning system with enhanced safety
+        // Initialize placeholder positioning system with perfect center alignment
         const initializePlaceholder = () => {
             if (!placeholder || !circleEl) return;
 
             const placeholderSize = window.innerWidth < 640 ? 120 : 150;
             const initialPos = getViewportPos(circleEl);
+            
+            // Ensure we have a valid initial position
+            if (!initialPos) return;
+            
             const constrainedPos = constrainToViewport(initialPos.x, initialPos.y, placeholderSize, 1);
 
             // Convert center-based coordinates to top-left for CSS transform
@@ -205,17 +212,20 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             const translateY = constrainedPos.y - halfSize;
 
             // Set initial position with enhanced styling and perfect centering
-            // The constrainToViewport function already handles safety margins
+            placeholder.style.position = 'fixed';
             placeholder.style.transform = `translate(${translateX}px, ${translateY}px) scale(1)`;
             placeholder.style.transformOrigin = '50% 50%';
             placeholder.style.willChange = 'transform, opacity';
             placeholder.style.opacity = '1';
             placeholder.style.visibility = 'visible';
+            placeholder.style.zIndex = '50';
+            placeholder.style.pointerEvents = 'none';
 
-            // Add smooth transition for position changes (but not on init)
+            // Ensure no transition conflicts during initialization
+            placeholder.style.transition = 'none';
             setTimeout(() => {
-                placeholder.style.transition = 'none'; // Ensure no transition conflicts
-            }, 150);
+                placeholder.style.transition = 'transform 0.1s ease-out, opacity 0.3s ease-out';
+            }, 100);
         };
 
         let ticking = false;
@@ -234,10 +244,13 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             // Use visualViewport height if available to ignore mobile browser address bar
             const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
 
-            // Get current viewport positions for all targets
+            // Get current viewport positions for all targets with enhanced accuracy
             const initialPos = getViewportPos(circleEl);
             const aboutPos = getViewportPos(aboutDestination);
             const eventsPos = getViewportPos(eventsDestination);
+
+            // Ensure we have valid positions before proceeding
+            if (!initialPos || !aboutPos || !eventsPos) return;
 
             let x = initialPos.x;
             let y = initialPos.y;
@@ -325,7 +338,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                 opacity = 0;
             }
 
-            // Apply scale-aware viewport constraints to prevent clipping
+            // Apply scale-aware viewport constraints to prevent clipping while maintaining center alignment
             const constrainedPos = constrainToViewport(x, y, placeholderSize, scale);
 
             // Convert center-based coordinates to top-left for CSS transform
@@ -335,11 +348,13 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             const translateY = constrainedPos.y - halfSize;
 
             // Apply smooth transform and opacity with perfect centering
-            // Remove the additional safety check that was interfering with centering
             placeholder.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+            
+            // Ensure transform-origin remains centered for perfect scaling
+            placeholder.style.transformOrigin = '50% 50%';
 
             // Update opacity and visibility for performance
-            if (opacity <= 0) {
+            if (opacity <= 0.01) {
                 placeholder.style.opacity = '0';
                 placeholder.style.visibility = 'hidden';
             } else {
@@ -436,7 +451,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                         </div>
 
                         <div ref={logoRef} className="gritx-title text-[20vw] md:text-[12vw] font-black text-gray-200 flex items-center justify-center">
-                            <span>G</span><span>R</span><span ref={iRef} className="relative">I</span><span>T</span><span>X</span><span>8</span><span>.</span><span>0</span>
+                            <span>G</span><span>R</span><span ref={iRef} className="relative">I</span><span>T</span><span>X</span>&nbsp;<span>8</span><span>.</span><span>0</span>
                         </div>
                     </div>
 
@@ -501,10 +516,10 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
 
             {/* About Section */}
             <section ref={aboutSectionRef} className="w-full flex flex-col space-y-20 sm:space-y-0 md:flex-row items-center justify-center py-16 px-4 full-vh">
-                <div ref={aboutDestinationRef} className="w-full md:w-1/2 flex items-center justify-center min-h-[200px] sm:min-h-[300px]">
+                <div ref={aboutDestinationRef} className="w-full md:w-2/6 flex items-center justify-center min-h-[200px] sm:min-h-[300px]">
                     {/* Placeholder destination - animated placeholder will move here */}
                 </div>
-                <div className="w-full md:w-1/2 pr-0 md:pr-8 mb-8 md:mb-0">
+                <div className="w-full md:w-4/6 pr-0 md:px-16 mb-8 md:mb-0">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">About GRITX</h2>
                     <p className="text-gray-300 text-base md:text-lg">
                         GRITX represents the pinnacle of design and engineering. Our philosophy is rooted in precision, strength, and a forward-thinking approach to solve complex challenges. We build solutions that are not only robust but also elegant and intuitive.

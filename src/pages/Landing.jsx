@@ -4,6 +4,88 @@ import Lenis from 'https://esm.sh/@studio-freight/lenis';
 import { motion } from 'framer-motion';
 import ProgramOfficers from '../components/ProgramOfficers';
 import MainLeads from '../components/MainLeads';
+import PerspectiveCarousel from '../components/Carousel';
+
+// Events data for carousel
+const eventsData = [
+    {
+        id: 1,
+        logo: "/logo1.png",
+        title: "PapertriX",
+        description: "ProjectriX is a dynamic platform where innovation meets execution. Designed to showcase groundbreaking student projects and prototypes, it provides a stage for young minds to present ideas that bridge creativity, technology, and real-world applications.",
+        link: "/papertrix",
+    },
+    {
+        id: 2,
+        logo: "/logo2.png",
+        title: "Code2Cosmos",
+        description: "A coding competition that takes you from basic algorithms to cosmic-scale problems. Challenge your programming skills and explore the universe of code.",
+        link: "/code2cosmos",
+    },
+    {
+        id: 3,
+        logo: "/logo3.png",
+        title: "Roll and Rule",
+        description: "🎲 Roll and Rule 👑 – A board game challenge like never before! Every dice roll brings puzzles 🧩, fun tasks 🎨, and surprises 🔮. Think smart 🧐, team up 🤝, and rule the board 🏆!",
+        link: "/roll-and-rule",
+    },
+    {
+        id: 4,
+        logo: "/logo4.png",
+        title: "Script2Screen",
+        description: "🎬 Script2Screen – A creative fest celebrating the art of storytelling across TV shows, advertisements, web series, and books! 📚",
+        link: "/script2screen",
+    },
+    {
+        id: 5,
+        logo: "/logo5.png",
+        title: "HuntXcape",
+        description: "HuntXcape – an ultimate offline adventure with thrilling puzzles, riddles, and challenges where teams hunt, solve, and escape for nonstop fun! 🚀🔍",
+        link: "/huntxcape",
+    },
+    {
+        id: 6,
+        logo: "/logo6.png",
+        title: "Jockey Junction",
+        description: "🎙 RJ Fiesta – Mic, Magic & Madness! Think you've got the voice, vibes, and versatility of an RJ? 🔥 Step into the spotlight and unleash your inner speaking skills!",
+        link: "/jockey-junction",
+    },
+    {
+        id: 7,
+        logo: "/logo7.png",
+        title: "Sportsera",
+        description: "SPORTSERA 🎉 is a dynamic team-based sports competition, where each team has two members of the same gender. It's a perfect mix of knowledge, strength, memory, strategy, and adventure!",
+        link: "/sportsera",
+    },
+    {
+        id: 8,
+        logo: "/logo8.png",
+        title: "E-football",
+        description: "Join our tournament, get paired with a random teammate, and compete in a knockout challenge. Win to move on; lose and you're out. It's an unpredictable, fun way to test your skills and make a new friend.",
+        link: "/e-football",
+    },
+    {
+        id: 9,
+        logo: "/logo9.png",
+        title: "Cinimax",
+        description: "Get ready to dive into the world of cinema with CiniMax – a fun-filled event packed with entertainment, excitement, and nostalgia! From iconic movie scenes to evergreen songs.",
+        link: "/cinimax",
+    },
+    {
+        id: 10,
+        logo: "/logo10.png",
+        title: "Campus Ambassador",
+        description: "Become the driving force of GritX 8.0 as a Campus Ambassador! 🌟 Lead campus promotions 📣, spark excitement 🔥, and drive registrations 🚀 while showcasing your leadership skills.",
+        link: "/campus-ambassador",
+    },
+    {
+        id: 11,
+        logo: "/logo11.png",
+        title: "Frozen Frames",
+        description: "Capture the perfect moment with photography and videography challenges. Showcase your creative vision and technical skills in this visual storytelling competition.",
+        link: "/frozen-frames",
+    },
+];
 
 function generateInitialLogos() {
     return Array.from({ length: 8 }, (_, i) => ({
@@ -200,10 +282,10 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
 
             const placeholderSize = window.innerWidth < 640 ? 120 : 150;
             const initialPos = getViewportPos(circleEl);
-            
+
             // Ensure we have a valid initial position
             if (!initialPos) return;
-            
+
             const constrainedPos = constrainToViewport(initialPos.x, initialPos.y, placeholderSize, 1);
 
             // Convert center-based coordinates to top-left for CSS transform
@@ -349,7 +431,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
 
             // Apply smooth transform and opacity with perfect centering
             placeholder.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-            
+
             // Ensure transform-origin remains centered for perfect scaling
             placeholder.style.transformOrigin = '50% 50%';
 
@@ -545,6 +627,21 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                             Engage in community-building activities, creative challenges, and networking sessions that foster growth and connection beyond the code.
                         </p>
                     </div>
+                </div>
+            </section>
+
+            {/* Events Carousel Section */}
+            <section className="w-full flex flex-col items-center justify-center py-20 px-4">
+                <div className="w-full max-w-6xl mx-auto text-center mb-12">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-fuchsia-400 bg-clip-text text-transparent">
+                        Explore Our Events
+                    </h2>
+                    <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto">
+                        Discover the diverse range of competitions, workshops, and activities that make GRITX 8.0 an unforgettable experience. Each event is designed to challenge, inspire, and celebrate innovation.
+                    </p>
+                </div>
+                <div className="w-full flex justify-center">
+                    <PerspectiveCarousel items={eventsData} />
                 </div>
             </section>
 

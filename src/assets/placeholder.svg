@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="256" height="256" rx="28" fill="url(#grad)"/>
+  <g fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="96" cy="104" r="42"/>
+    <path d="M32 208c10-36 40-64 80-64s70 28 80 64"/>
+    <path d="M172 96l24 24 28-48"/>
+  </g>
+  <text x="50%" y="90%" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" fill="#ffffff" opacity="0.8">PLACEHOLDER</text>
+</svg>

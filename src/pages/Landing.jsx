@@ -697,12 +697,12 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             </section>
 
             {/* Bento Grid Section */}
-            <section className="w-full py-20 px-4">
+            <section className="w-full py-20 md:px-4">
                 <div className="w-full max-w-6xl mx-auto text-center mb-12">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-fuchsia-400 bg-clip-text text-transparent">
+                    <h2 className="text-4xl md:text-5xl font-medium mb-6 font-[Rye] tracking-widest">
                         Discover & Explore
                     </h2>
-                    <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto">
+                    <p className="text-gray-300 text-xl md:text-2xl max-w-3xl  font-[Pirata_one] tracking-widest mx-auto">
                         Dive into our curated collection of projects, innovations, and community-driven initiatives that define our vision for the future.
                     </p>
                 </div>

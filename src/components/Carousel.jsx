@@ -27,16 +27,16 @@ const carouselStyles = `
   /* Mobile responsiveness */
   @media (max-width: 768px) {
     .carousel {
-      width: min(18rem, 85vw);
-      height: min(18rem, 85vw);
+      width: min(20rem, 85vw);
+      height: min(24rem, 85vw);
       perspective: 400px;
     }
   }
 
   @media (max-width: 480px) {
     .carousel {
-      width: min(16rem, 90vw);
-      height: min(16rem, 90vw);
+      width: min(18rem, 90vw);
+      height: min(26rem, 90vw);
       perspective: 350px;
     }
   }
@@ -111,15 +111,15 @@ const carouselStyles = `
   /* Mobile logo sizing */
   @media (max-width: 768px) {
     .card .card-logo {
-      width: 75px;
-      height: 75px;
+      width: 90px;
+      height: 90px;
     }
   }
 
   @media (max-width: 480px) {
     .card .card-logo {
-      width: 80px;
-      height: 80px;
+      width: 100px;
+      height: 100px;
     }
   }
 

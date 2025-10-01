@@ -654,7 +654,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                 </div>
                 <div className="w-full md:w-4/6 pr-0 md:px-16 mb-8 md:mb-0 relative z-30 md:z-auto">
                     <h2 className="font-[Rye] text-3xl md:text-4xl font-medium tracking-wider mb-4">About GRITX 8.0</h2>
-                    <p className="text-gray-300  font-[Pirata_One] tracking-widest text-base md:text-2xl">
+                    <p className="text-gray-300  font-[Pirata_One] tracking-widest text-xl md:text-2xl">
                         GRITX represents the pinnacle of design and engineering. Our philosophy is rooted in precision, strength, and a forward-thinking approach to solve complex challenges. We build solutions that are not only robust but also elegant and intuitive.
                     </p>
                 </div>

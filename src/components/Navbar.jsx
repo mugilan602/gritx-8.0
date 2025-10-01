@@ -69,7 +69,7 @@ const Navbar = () => {
             {/* --- Universal Hamburger Button --- */}
             <motion.button
                 onClick={toggleMenu}
-                className="fixed top-3 right-3 z-[100] text-white text-lg p-2 bg-gray-800/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-gray-700 transition-colors duration-200"
+                className="fixed top-3 right-3 md:top-4 md:right-4 z-[100] text-white md:text-2xl text-lg p-2 md:p-3 bg-gray-800/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-gray-700 transition-colors duration-200"
                 aria-label="Toggle menu"
                 whileTap={{ scale: 0.9 }}
             >

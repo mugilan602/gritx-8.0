@@ -559,16 +559,16 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             {/* Hero Section */}
             {/* ✅ FIX: Modified to use 100vh on mobile, full-vh on desktop */}
             <section ref={heroSectionRef} className="w-full flex flex-col items-center justify-center px-4 h-screen md:full-vh relative z-20 md:z-auto">
-                <div ref={heroAnimRef} className="flex flex-col md:flex-row w-full items-center justify-center md:space-y-0 md:space-x-16 transition-transform duration-300 will-change-transform relative z-30 md:z-auto">
+                <div ref={heroAnimRef} className="flex flex-col md:flex-row w-full items-center justify-center space-y-10 md:space-y-0 md:space-x-16 transition-transform duration-300 will-change-transform relative z-30 md:z-auto">
                     {/* Left Column: GRITX Title */}
                     <div className="flex flex-col items-center">
-                        <div className="text-center font-[Pirata_One] text-base md:text-sm uppercase tracking-widest text-gray-300">
+                        <div className="text-center font-[Pirata_One] text-base md:text-2xl uppercase tracking-widest text-gray-300">
                             <div>SRI SAIRAM ENGINEERING COLLEGE</div>
                             <div>NATIONAL SERVICE SCHEME</div>
                             <div className="mt-2 font-normal text-gray-100">PRESENTS</div>
                         </div>
 
-                        <div ref={logoRef} className="gritx-title font-[Rye] mt-2 tracking-widest text-4xl md:text-[12vw] text-gray-200 flex items-center justify-center">
+                        <div ref={logoRef} className="gritx-title font-[Rye] mt-2 tracking-widest text-4xl md:text-9xl text-gray-200 flex items-center justify-center">
                             <span>G</span><span>R</span><span ref={iRef} className="relative">I</span><span>T</span><span>X</span>&nbsp;<span>8</span><span>.</span><span>0</span>
                         </div>
                     </div>

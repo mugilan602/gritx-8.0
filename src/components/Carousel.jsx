@@ -151,9 +151,6 @@ const carouselStyles = `
   
   .card p {
     font-size: 1.1rem;
-    line-height: 1.5;
-    font-family: 'Pirata One', cursive;
-    letter-spacing: 0.15em;
     margin: 0;
     flex-grow: 1;
     color: #4B5563;

@@ -88,10 +88,16 @@ const eventsData = [
 ];
 
 function generateInitialLogos() {
-    return Array.from({ length: 8 }, (_, i) => ({
+    // All 11 available logos
+    const allLogos = Array.from({ length: 11 }, (_, i) => ({
         id: i,
+        logo: `/logo${i + 1}.png`,
         label: `Logo ${i + 1}`,
     }));
+
+    // Randomly select 8 logos out of 11
+    const shuffled = allLogos.sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 8);
 }
 
 export default function Landing({ heroSectionRef, aboutSectionRef }) {
@@ -551,25 +557,25 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             </div>
 
             {/* Hero Section */}
-            {/* ✅ FIX: Added the 'full-vh' class for reliable height on mobile */}
-            <section ref={heroSectionRef} className="w-full flex flex-col items-center justify-center px-4 full-vh relative z-20 md:z-auto">
+            {/* ✅ FIX: Modified to use 100vh on mobile, full-vh on desktop */}
+            <section ref={heroSectionRef} className="w-full flex flex-col items-center justify-center px-4 h-screen md:full-vh relative z-20 md:z-auto">
                 <div ref={heroAnimRef} className="flex flex-col md:flex-row w-full items-center justify-center md:space-y-0 md:space-x-16 transition-transform duration-300 will-change-transform relative z-30 md:z-auto">
                     {/* Left Column: GRITX Title */}
                     <div className="flex flex-col items-center">
-                        <div className="text-center text-xs md:text-sm uppercase tracking-widest text-gray-300">
+                        <div className="text-center font-[Pirata_One] text-base md:text-sm uppercase tracking-widest text-gray-300">
                             <div>SRI SAIRAM ENGINEERING COLLEGE</div>
                             <div>NATIONAL SERVICE SCHEME</div>
-                            <div className="mt-2 font-medium text-gray-100">PRESENTS</div>
+                            <div className="mt-2 font-normal text-gray-100">PRESENTS</div>
                         </div>
 
-                        <div ref={logoRef} className="gritx-title text-[20vw] md:text-[12vw] font-black text-gray-200 flex items-center justify-center">
+                        <div ref={logoRef} className="gritx-title font-[Rye] mt-2 tracking-widest text-4xl md:text-[12vw] text-gray-200 flex items-center justify-center">
                             <span>G</span><span>R</span><span ref={iRef} className="relative">I</span><span>T</span><span>X</span>&nbsp;<span>8</span><span>.</span><span>0</span>
                         </div>
                     </div>
 
                     {/* Right Column: Circular animated logos */}
                     <motion.div
-                        className="relative w-64 h-64 md:w-96 md:h-96 flex items-center justify-center sm:my-0 my-16"
+                        className="relative w-64 h-64 md:w-96 md:h-96 flex items-center justify-center sm:my-0 my-8"
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}
                     >
                         <motion.div
@@ -588,13 +594,25 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                                 return (
                                     <motion.div
                                         key={logo.id}
-                                        className="pointer-events-auto absolute w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center text-black font-bold"
+                                        className="pointer-events-auto absolute w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center"
                                         layout
                                         initial={{ opacity: 0.8, scale: 0.95 }}
                                         animate={{ x: pos.x, y: pos.y, opacity: 1, scale: 1 }}
                                         transition={{ type: 'spring', stiffness: 120, damping: 20 }}
                                     >
-                                        {logo.label}
+                                        <img
+                                            src={logo.logo}
+                                            alt={logo.label}
+                                            className="w-full h-full object-contain rounded-full"
+                                            onError={(e) => {
+                                                // Fallback to text if image fails to load
+                                                e.target.style.display = 'none';
+                                                e.target.nextSibling.style.display = 'block';
+                                            }}
+                                        />
+                                        <span className="hidden text-xs font-bold text-white text-center">
+                                            {logo.label}
+                                        </span>
                                     </motion.div>
                                 );
                             })}
@@ -603,26 +621,26 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                 </div>
 
                 {/* Countdown Timer */}
-                <div className="text-center mt-8">
-                    <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
+                <div className="text-center mt-4 md:mt-8">
+                    <div className="flex flex-wrap justify-center gap-2 sm:gap-4 md:gap-8">
                         <div className="flex flex-col items-center">
-                            <div className="text-2xl md:text-5xl font-bold text-cyan-400">{timeLeft.days}</div>
-                            <div className="text-sm uppercase tracking-wider text-gray-400">Days</div>
+                            <div className="text-xl md:text-5xl font-bold text-cyan-400">{timeLeft.days}</div>
+                            <div className="text-xs md:text-sm uppercase tracking-wider text-gray-400">Days</div>
                         </div>
-                        <div className="text-4xl md:text-5xl font-bold text-gray-600 self-start">:</div>
+                        <div className="text-2xl md:text-5xl font-bold text-gray-600 self-start">:</div>
                         <div className="flex flex-col items-center">
-                            <div className="text-2xl md:text-5xl font-bold text-cyan-400">{timeLeft.hours}</div>
-                            <div className="text-sm uppercase tracking-wider text-gray-400">Hours</div>
+                            <div className="text-xl md:text-5xl font-bold text-cyan-400">{timeLeft.hours}</div>
+                            <div className="text-xs md:text-sm uppercase tracking-wider text-gray-400">Hours</div>
                         </div>
-                        <div className="text-4xl md:text-5xl font-bold text-gray-600 self-start">:</div>
+                        <div className="text-2xl md:text-5xl font-bold text-gray-600 self-start">:</div>
                         <div className="flex flex-col items-center">
-                            <div className="text-2xl md:text-5xl font-bold text-cyan-400">{timeLeft.minutes}</div>
-                            <div className="text-sm uppercase tracking-wider text-gray-400">Minutes</div>
+                            <div className="text-xl md:text-5xl font-bold text-cyan-400">{timeLeft.minutes}</div>
+                            <div className="text-xs md:text-sm uppercase tracking-wider text-gray-400">Minutes</div>
                         </div>
-                        <div className="sm:block hidden text-4xl md:text-5xl font-bold text-gray-600 self-start">:</div>
+                        <div className="sm:block hidden text-2xl md:text-5xl font-bold text-gray-600 self-start">:</div>
                         <div className="hidden sm:flex flex-col items-center">
-                            <div className="text-4xl md:text-5xl font-bold text-cyan-400">{timeLeft.seconds}</div>
-                            <div className="text-sm uppercase tracking-wider text-gray-400">Seconds</div>
+                            <div className="text-2xl md:text-5xl font-bold text-cyan-400">{timeLeft.seconds}</div>
+                            <div className="text-xs md:text-sm uppercase tracking-wider text-gray-400">Seconds</div>
                         </div>
                     </div>
                 </div>

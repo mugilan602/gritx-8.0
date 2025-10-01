@@ -220,6 +220,19 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             if (!target) return { x: 0, y: 0 };
             const targetBounds = target.getBoundingClientRect();
 
+            // For circleRef (hero section), ensure we get the true center of the circular logo area
+            if (target === circleRef) {
+                // Get the parent container (the motion.div with w-64 h-64 md:w-96 md:h-96)
+                const parentContainer = target.parentElement;
+                if (parentContainer) {
+                    const parentBounds = parentContainer.getBoundingClientRect();
+                    return {
+                        x: parentBounds.left + (parentBounds.width / 2),
+                        y: parentBounds.top + (parentBounds.height / 2),
+                    };
+                }
+            }
+
             // Calculate exact center position of target element relative to viewport
             // Ensure we get the true geometric center of the destination element
             const centerX = targetBounds.left + (targetBounds.width / 2);
@@ -430,8 +443,8 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             // Convert center-based coordinates to top-left for CSS transform
             // Since we use transform-origin: 50% 50%, we offset by half the base size (not scaled size)
             const halfSize = placeholderSize / 2;
-            const translateX = constrainedPos.x - halfSize;
-            const translateY = constrainedPos.y - halfSize;
+            const translateX = Math.round(constrainedPos.x - halfSize);
+            const translateY = Math.round(constrainedPos.y - halfSize);
 
             // Apply smooth transform and opacity with perfect centering
             placeholder.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
@@ -521,9 +534,10 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                 style={{
                     willChange: 'transform',
                     backfaceVisibility: 'hidden',
-                    perspective: '1000px'
+                    perspective: '1000px',
+                    transformOrigin: '50% 50%'
                 }}
-                className="fixed top-0 left-0 w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] z-50 pointer-events-none"
+                className="fixed top-0 left-0 w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] z-50 pointer-events-none flex items-center justify-center"
             >
                 <img
                     src="/logo.png"
@@ -564,6 +578,8 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                             animate={{ rotate: 360 }}
                             transition={{ repeat: Infinity, duration: 20, ease: 'linear' }}
                         >
+                            {/* Invisible center reference point for logo positioning */}
+                            <div className="w-4 h-4 opacity-0 pointer-events-none"></div>
                         </motion.div>
 
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">

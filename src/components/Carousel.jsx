@@ -36,7 +36,7 @@ const carouselStyles = `
   @media (max-width: 480px) {
     .carousel {
       width: min(18rem, 90vw);
-      height: min(26rem, 90vw);
+      height: min(30rem, 90vw);
       perspective: 350px;
     }
   }

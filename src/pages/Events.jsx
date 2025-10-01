@@ -54,11 +54,24 @@ const eventsData = [
 
 export default function EventsPage() {
     return (
-        <div style={container}>
-            {eventsData.map((event) => (
-                <Card event={event} key={event.id} />
-            ))}
-        </div>
+        <>
+            <div>
+                <h1>Technical Events</h1>
+                <div style={container}>
+                    {eventsData.map((event) => (
+                        <Card event={event} key={event.id} />
+                    ))}
+                </div>
+            </div>
+            <div>
+                <h1>Non-Technical Events</h1>
+                <div style={container}>
+                    {eventsData.map((event) => (
+                        <Card event={event} key={event.id} />
+                    ))}
+                </div>
+            </div>
+        </>
     )
 }
 

@@ -171,7 +171,7 @@ export default function AnimatedEventPage({ eventData }) {
                         height: isMobile ? '40px' : '56px',
                         objectFit: 'cover',
                         borderRadius: '6px',
-                        mixBlendMode:'screen', // Alternate blend modes
+                        mixBlendMode: 'screen', // Alternate blend modes
                         zIndex: 50 + index, // Different z-indexes
                         filter: `hue-rotate(${index * 30}deg)` // Different color tints
                     }}

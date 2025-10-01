@@ -284,6 +284,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             if (!placeholder || !circleEl) return;
 
             const placeholderSize = window.innerWidth < 640 ? 120 : 150;
+            const isMobile = window.innerWidth < 768; // md breakpoint
             const initialPos = getViewportPos(circleEl);
 
             // Ensure we have a valid initial position
@@ -301,9 +302,9 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             placeholder.style.transform = `translate(${translateX}px, ${translateY}px) scale(1)`;
             placeholder.style.transformOrigin = '50% 50%';
             placeholder.style.willChange = 'transform, opacity';
-            placeholder.style.opacity = '1';
+            placeholder.style.opacity = isMobile ? '0.4' : '1'; // Lower opacity on mobile
             placeholder.style.visibility = 'visible';
-            placeholder.style.zIndex = '50';
+            placeholder.style.zIndex = isMobile ? '10' : '50'; // Lower z-index on mobile to go behind text
             placeholder.style.pointerEvents = 'none';
 
             // Ensure no transition conflicts during initialization
@@ -438,14 +439,22 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             // Ensure transform-origin remains centered for perfect scaling
             placeholder.style.transformOrigin = '50% 50%';
 
-            // Update opacity and visibility for performance
+            // Check if mobile for responsive behavior
+            const isMobile = window.innerWidth < 768; // md breakpoint
+
+            // Update opacity and visibility for performance with mobile adjustments
             if (opacity <= 0.01) {
                 placeholder.style.opacity = '0';
                 placeholder.style.visibility = 'hidden';
             } else {
-                placeholder.style.opacity = opacity.toString();
+                // Apply mobile-specific opacity reduction while keeping animation logic intact
+                const finalOpacity = isMobile ? opacity * 0.4 : opacity; // 40% of calculated opacity on mobile
+                placeholder.style.opacity = finalOpacity.toString();
                 placeholder.style.visibility = 'visible';
             }
+
+            // Update z-index responsively to ensure logo stays behind text on mobile
+            placeholder.style.zIndex = isMobile ? '10' : '50';
         };
 
         const onScroll = () => {
@@ -466,7 +475,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
 
         // Handle resize and orientation change events
         const handleResize = () => {
-            // Reinitialize placeholder position on resize
+            // Reinitialize placeholder position on resize and update responsive behavior
             initializePlaceholder();
             if (!ticking) {
                 requestAnimationFrame(updateAnimation);
@@ -529,8 +538,8 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
 
             {/* Hero Section */}
             {/* ✅ FIX: Added the 'full-vh' class for reliable height on mobile */}
-            <section ref={heroSectionRef} className="w-full flex flex-col items-center justify-center px-4 full-vh">
-                <div ref={heroAnimRef} className="flex flex-col md:flex-row w-full items-center justify-center md:space-y-0 md:space-x-16 transition-transform duration-300 will-change-transform">
+            <section ref={heroSectionRef} className="w-full flex flex-col items-center justify-center px-4 full-vh relative z-20 md:z-auto">
+                <div ref={heroAnimRef} className="flex flex-col md:flex-row w-full items-center justify-center md:space-y-0 md:space-x-16 transition-transform duration-300 will-change-transform relative z-30 md:z-auto">
                     {/* Left Column: GRITX Title */}
                     <div className="flex flex-col items-center">
                         <div className="text-center text-xs md:text-sm uppercase tracking-widest text-gray-300">
@@ -604,11 +613,11 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             </section>
 
             {/* About Section */}
-            <section ref={aboutSectionRef} className="w-full flex flex-col space-y-20 sm:space-y-0 md:flex-row items-center justify-center py-16 px-4 full-vh">
+            <section ref={aboutSectionRef} className="w-full flex flex-col space-y-20 sm:space-y-0 md:flex-row items-center justify-center py-16 px-4 full-vh relative z-20 md:z-auto">
                 <div ref={aboutDestinationRef} className="w-full md:w-2/6 flex items-center justify-center min-h-[200px] sm:min-h-[300px]">
                     {/* Placeholder destination - animated placeholder will move here */}
                 </div>
-                <div className="w-full md:w-4/6 pr-0 md:px-16 mb-8 md:mb-0">
+                <div className="w-full md:w-4/6 pr-0 md:px-16 mb-8 md:mb-0 relative z-30 md:z-auto">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">About GRITX</h2>
                     <p className="text-gray-300 text-base md:text-lg">
                         GRITX represents the pinnacle of design and engineering. Our philosophy is rooted in precision, strength, and a forward-thinking approach to solve complex challenges. We build solutions that are not only robust but also elegant and intuitive.
@@ -617,9 +626,9 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             </section>
 
             {/* Events Section */}
-            <section ref={eventsSectionRef} className="w-full flex flex-col items-center justify-center py-16 px-4 full-vh">
+            <section ref={eventsSectionRef} className="w-full flex flex-col items-center justify-center py-16 px-4 full-vh relative z-20 md:z-auto">
                 <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8">
-                    <div className="w-full md:w-5/12 p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700">
+                    <div className="w-full md:w-5/12 p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700 relative z-30 md:z-auto">
                         <h3 className="text-2xl font-bold mb-4 text-cyan-300">Tech Events</h3>
                         <p className="text-gray-300 text-base">
                             Join our hackathons, workshops, and tech talks. Dive deep into the latest technologies and collaborate with brilliant minds from around the world.
@@ -628,7 +637,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                     <div ref={eventsDestinationRef} className="w-full md:w-2/12 h-[100px] flex-shrink-0 flex items-center justify-center">
                         {/* Placeholder destination - animated placeholder will move here */}
                     </div>
-                    <div className="w-full md:w-5/12 p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700">
+                    <div className="w-full md:w-5/12 p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700 relative z-30 md:z-auto">
                         <h3 className="text-2xl font-bold mb-4 text-fuchsia-300">Community Events</h3>
                         <p className="text-gray-300 text-base">
                             Engage in community-building activities, creative challenges, and networking sessions that foster growth and connection beyond the code.

@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import ProgramOfficers from '../components/ProgramOfficers';
 import MainLeads from '../components/MainLeads';
 import PerspectiveCarousel from '../components/Carousel';
+import BentoGrid from '../components/BentoGrid';
 
 // Events data for carousel
 const eventsData = [
@@ -624,23 +625,23 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                 <div className="text-center mt-4 md:mt-8">
                     <div className="flex flex-wrap justify-center gap-2 sm:gap-4 md:gap-8">
                         <div className="flex flex-col items-center">
-                            <div className="text-xl md:text-5xl font-bold text-cyan-400">{timeLeft.days}</div>
-                            <div className="text-xs md:text-sm uppercase tracking-wider text-gray-400">Days</div>
+                            <div className="text-xl md:text-5xl font-bold text-white">{timeLeft.days}</div>
+                            <div className=" font-[Pirata_One] tracking-widest text-xs md:text-lg uppercase  text-gray-400">Days</div>
                         </div>
                         <div className="text-2xl md:text-5xl font-bold text-gray-600 self-start">:</div>
                         <div className="flex flex-col items-center">
-                            <div className="text-xl md:text-5xl font-bold text-cyan-400">{timeLeft.hours}</div>
-                            <div className="text-xs md:text-sm uppercase tracking-wider text-gray-400">Hours</div>
+                            <div className="text-xl md:text-5xl font-bold text-white">{timeLeft.hours}</div>
+                            <div className=" font-[Pirata_One] tracking-widest text-xs md:text-lg uppercase  text-gray-400">Hours</div>
                         </div>
                         <div className="text-2xl md:text-5xl font-bold text-gray-600 self-start">:</div>
                         <div className="flex flex-col items-center">
-                            <div className="text-xl md:text-5xl font-bold text-cyan-400">{timeLeft.minutes}</div>
-                            <div className="text-xs md:text-sm uppercase tracking-wider text-gray-400">Minutes</div>
+                            <div className="text-xl md:text-5xl font-bold text-white">{timeLeft.minutes}</div>
+                            <div className=" font-[Pirata_One] tracking-widest text-xs md:text-lg uppercase  text-gray-400">Minutes</div>
                         </div>
                         <div className="sm:block hidden text-2xl md:text-5xl font-bold text-gray-600 self-start">:</div>
                         <div className="hidden sm:flex flex-col items-center">
-                            <div className="text-2xl md:text-5xl font-bold text-cyan-400">{timeLeft.seconds}</div>
-                            <div className="text-xs md:text-sm uppercase tracking-wider text-gray-400">Seconds</div>
+                            <div className="text-2xl md:text-5xl font-bold text-white">{timeLeft.seconds}</div>
+                            <div className=" font-[Pirata_One] tracking-widest text-xs md:text-lg uppercase  text-gray-400">Seconds</div>
                         </div>
                     </div>
                 </div>
@@ -652,8 +653,8 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                     {/* Placeholder destination - animated placeholder will move here */}
                 </div>
                 <div className="w-full md:w-4/6 pr-0 md:px-16 mb-8 md:mb-0 relative z-30 md:z-auto">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">About GRITX</h2>
-                    <p className="text-gray-300 text-base md:text-lg">
+                    <h2 className="font-[Rye] text-3xl md:text-4xl font-medium tracking-wider mb-4">About GRITX 8.0</h2>
+                    <p className="text-gray-300  font-[Pirata_One] tracking-widest text-base md:text-2xl">
                         GRITX represents the pinnacle of design and engineering. Our philosophy is rooted in precision, strength, and a forward-thinking approach to solve complex challenges. We build solutions that are not only robust but also elegant and intuitive.
                     </p>
                 </div>
@@ -663,8 +664,8 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             <section ref={eventsSectionRef} className="w-full flex flex-col items-center justify-center py-16 px-4 full-vh relative z-20 md:z-auto">
                 <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8">
                     <div className="w-full md:w-5/12 p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700 relative z-30 md:z-auto">
-                        <h3 className="text-2xl font-bold mb-4 text-cyan-300">Tech Events</h3>
-                        <p className="text-gray-300 text-base">
+                        <h3 className="text-2xl font-[Rye] tracking-widest font-bold mb-4 text-cyan-300">Tech Events</h3>
+                        <p className="text-gray-300 font-[Pirata_one] tracking-widest text-xl">
                             Join our hackathons, workshops, and tech talks. Dive deep into the latest technologies and collaborate with brilliant minds from around the world.
                         </p>
                     </div>
@@ -672,8 +673,8 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                         {/* Placeholder destination - animated placeholder will move here */}
                     </div>
                     <div className="w-full md:w-5/12 p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700 relative z-30 md:z-auto">
-                        <h3 className="text-2xl font-bold mb-4 text-fuchsia-300">Community Events</h3>
-                        <p className="text-gray-300 text-base">
+                        <h3 className="text-2xl font-[Rye] tracking-widest font-bold mb-4 text-fuchsia-300">Non Tech Events</h3>
+                        <p className="text-gray-300 font-[Pirata_one] tracking-widest text-xl">
                             Engage in community-building activities, creative challenges, and networking sessions that foster growth and connection beyond the code.
                         </p>
                     </div>
@@ -683,16 +684,29 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
             {/* Events Carousel Section */}
             <section className="w-full flex flex-col items-center justify-center py-20 px-4">
                 <div className="w-full max-w-6xl mx-auto text-center mb-12">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-fuchsia-400 bg-clip-text text-transparent">
+                <h2 className="text-4xl md:text-5xl font-medium mb-6 font-[Rye] tracking-widest">
                         Explore Our Events
                     </h2>
-                    <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto">
+                    <p className="text-gray-300 text-lg md:text-2xl max-w-4xl font-[Pirata_one] tracking-widest mx-auto">
                         Discover the diverse range of competitions, workshops, and activities that make GRITX 8.0 an unforgettable experience. Each event is designed to challenge, inspire, and celebrate innovation.
                     </p>
                 </div>
                 <div className="w-full flex justify-center">
                     <PerspectiveCarousel items={eventsData} />
                 </div>
+            </section>
+
+            {/* Bento Grid Section */}
+            <section className="w-full py-20 px-4">
+                <div className="w-full max-w-6xl mx-auto text-center mb-12">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-fuchsia-400 bg-clip-text text-transparent">
+                        Discover & Explore
+                    </h2>
+                    <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto">
+                        Dive into our curated collection of projects, innovations, and community-driven initiatives that define our vision for the future.
+                    </p>
+                </div>
+                <BentoGrid />
             </section>
 
             <section>

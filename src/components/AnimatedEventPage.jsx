@@ -138,7 +138,7 @@ export default function AnimatedEventPage({ eventData }) {
                         {event.description}
                     </motion.p>
                     <motion.a
-                        href="https://forms.gle/YOUR-FORM-ID-HERE" // <-- Replace with your Google Form link
+                        href={event.gform} // <-- Replace with your Google Form link
                         target="_blank"
                         rel="noopener noreferrer"
                         className="mt-8 px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold text-lg rounded-full shadow-lg transition-all duration-300 hover:shadow-purple-500/50"

@@ -115,7 +115,7 @@ export default function AnimatedEventPage({ eventData }) {
                     <motion.img
                         src={event.logoUrl}
                         alt={`${event.name} Logo`}
-                        className="w-24 h-24 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-gray-800 p-2 shadow-md border border-gray-700 mb-4 sm:mb-6"
+                        className="w-28 h-28 sm:w-20 sm:h-20 md:w-32 md:h-32 rounded-full bg-gray-800 shadow-md border border-gray-700 mb-4 sm:mb-6"
                         initial={{ scale: 0, rotate: -90 }}
                         animate={{ scale: 1, rotate: 0 }}
                         transition={{ duration: 0.5, delay: 0.1, type: "spring", stiffness: 300, damping: 20 }}

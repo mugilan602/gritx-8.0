@@ -66,8 +66,8 @@ function Card({ event }) {
                             src={event.icon}
                             alt={`${event.title} icon`}
                             style={{
-                                width: '56px',
-                                height: '56px',
+                                width: '70px',
+                                height: '70px',
                                 objectFit: 'contain',
                                 borderRadius: '8px'
                             }}

@@ -283,9 +283,9 @@ const MAX_VISIBILITY = 3;
 
 // --- Card Component ---
 // This is the template for each item in the carousel.
-const Card = ({ logo, title, description, link }) => (
+const Card = ({ icon, title, description, link }) => (
   <div className='card'>
-    <img src={logo} alt={`${title} logo`} className="card-logo" />
+    <img src={icon} alt={`${title} logo`} className="card-logo" />
     <h2>{title}</h2>
     <p>{description}</p>
     {link && (

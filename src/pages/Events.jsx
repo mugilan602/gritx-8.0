@@ -54,24 +54,33 @@ const eventsData = [
 
 export default function EventsPage() {
     return (
-        <>
-            <div>
-                <h1>Technical Events</h1>
-                <div style={container}>
-                    {eventsData.map((event) => (
-                        <Card event={event} key={event.id} />
-                    ))}
+        <div className="min-h-screen bg-black py-12 px-4">
+            <div className="max-w-8xl mx-auto">
+                <div className="mb-16">
+                    {/* ✅ FIX: Added relative z-10 to make the heading visible */}
+                    <h1 className="relative z-10 text-white text-4xl md:text-6xl font-['Rye'] tracking-widest font-medium text-center mb-8">
+                        Technical Events
+                    </h1>
+                    <div style={container}>
+                        {eventsData.map((event) => (
+                            <Card event={event} key={event.id} />
+                        ))}
+                    </div>
+                </div>
+
+                <div className="mb-16">
+                    {/* ✅ FIX: Added relative z-10 to make the heading visible */}
+                    <h1 className="relative z-10 text-white text-4xl md:text-6xl font-['Rye'] tracking-widest font-medium text-center mb-8">
+                        Non-Technical Events
+                    </h1>
+                    <div style={container}>
+                        {eventsData.map((event) => (
+                            <Card event={event} key={event.id} />
+                        ))}
+                    </div>
                 </div>
             </div>
-            <div>
-                <h1>Non-Technical Events</h1>
-                <div style={container}>
-                    {eventsData.map((event) => (
-                        <Card event={event} key={event.id} />
-                    ))}
-                </div>
-            </div>
-        </>
+        </div>
     )
 }
 

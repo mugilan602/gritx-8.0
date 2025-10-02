@@ -86,7 +86,7 @@ const Navbar = () => {
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
                             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                            className="hidden md:block fixed top-0 right-0 h-full w-[40vw] bg-gray-900/90 backdrop-blur-xl z-[99] shadow-2xl"
+                            className="hidden md:block fixed top-0 right-0 h-full w-[40vw] bg-gray-900/30 backdrop-blur-xl z-[99] shadow-2xl"
                         >
                             <div className="flex flex-col items-center justify-center h-full space-y-10">
                                 {navLinks.map((link, index) => (
@@ -99,7 +99,7 @@ const Navbar = () => {
                                         <a
                                             href={link.path}
                                             onClick={(e) => handleNavClick(e, link)}
-                                            className={`text-4xl font-bold transition-colors duration-300
+                                            className={` font-[Pirata_One] tracking-widest text-5xl font-medium transition-colors duration-300
                                                 ${location.pathname === link.path && !link.section
                                                     ? 'text-blue-400'
                                                     : 'text-gray-200 hover:text-white'
@@ -120,7 +120,7 @@ const Navbar = () => {
                             animate={{ opacity: 1, clipPath: 'circle(150% at 95% 5%)' }}
                             exit={{ opacity: 0, clipPath: 'circle(0% at 95% 5%)' }}
                             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                            className="md:hidden fixed inset-0 bg-gray-900/95 backdrop-blur-xl flex flex-col items-center justify-center z-[99]"
+                            className="md:hidden fixed inset-0 bg-gray-900/30 backdrop-blur-xl flex flex-col items-center justify-center z-[99]"
                         >
                             <div className="flex flex-col items-center space-y-8">
                                 {navLinks.map((link, index) => (
@@ -133,7 +133,7 @@ const Navbar = () => {
                                         <a
                                             href={link.path}
                                             onClick={(e) => handleNavClick(e, link)}
-                                            className={`text-3xl font-bold transition-colors duration-300
+                                            className={` font-[pirata_one] tracking-widest text-4xl font-medium transition-colors duration-300
                                                 ${location.pathname === link.path && !link.section
                                                     ? 'text-blue-400'
                                                     : 'text-gray-200 hover:text-white'

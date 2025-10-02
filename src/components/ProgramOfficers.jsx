@@ -33,10 +33,10 @@ const teamMembers = [
 export default function ProgramOfficers() {
     return (
         // Using a div to simulate the body tag with background colors
-        <div className=" text-gray-800 dark:text-gray-200" style={{ fontFamily: "'Inter', sans-serif" }}>
+        <div className=" text-gray-800 dark:text-gray-200">
             <div className="container mx-auto px-4 py-12">
                 <header className="text-center mb-12">
-                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">Program Officers</h1>
+                    <h1 className="text-4xl md:text-5xl f font-[rye] tracking-wider font-medium text-gray-900 dark:text-white">Program Officers</h1>
                 </header>
 
                 {/* Photocards Grid */}

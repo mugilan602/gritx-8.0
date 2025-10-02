@@ -125,16 +125,16 @@ const BentoGrid = () => {
                             <div className="relative w-full h-full max-w-[250px] aspect-square flex items-center justify-center">
                                 <motion.div className="absolute w-full h-full border border-dashed border-white/20 rounded-full" animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 15, ease: "linear" }}>
                                     <motion.div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-white/10  rounded-full shadow-lg" whileHover={{ scale: 1.15 }}>
-                                        <img src="/logo2.png" alt="Outer Logo" className="object-contain filter drop-shadow-[0_0_4px_rgba(255,255,255,0.5)]" />
+                                        <img src="/nss.png" alt="Outer Logo" className="object-contain filter drop-shadow-[0_0_4px_rgba(255,255,255,0.5)]" />
                                     </motion.div>
                                 </motion.div>
                                 <motion.div className="absolute w-3/5 h-3/5 border border-dashed border-white/20 rounded-full" animate={{ rotate: -360 }} transition={{ repeat: Infinity, duration: 10, ease: "linear" }}>
                                     <motion.div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-white/10  rounded-full shadow-lg" whileHover={{ scale: 1.15 }}>
-                                        <img src="/logo2.png" alt="Inner Logo" className="object-contain filter drop-shadow-[0_0_4px_rgba(255,255,255,0.5)]" />
+                                        <img src="/logo.png" alt="Inner Logo" className="object-contain filter drop-shadow-[0_0_4px_rgba(255,255,255,0.5)]" />
                                     </motion.div>
                                 </motion.div>
-                                <motion.div className="w-16 h-16 bg-white/10 p-2.5 rounded-full shadow-xl flex items-center justify-center z-10" whileHover={{ scale: 1.15 }}>
-                                    <img src="/logo.png" alt="Center Logo" className="object-contain filter drop-shadow-[0_0_6px_rgba(255,255,255,0.7)]" />
+                                <motion.div className="w-16 h-16 bg-white/10 rounded-full shadow-xl flex items-center justify-center z-10" whileHover={{ scale: 1.15 }}>
+                                    <img src="/sec.png" alt="Center Logo" className="object-contain filter drop-shadow-[0_0_6px_rgba(255,255,255,0.7)]" />
                                 </motion.div>
                             </div>
                         </div>
@@ -144,7 +144,7 @@ const BentoGrid = () => {
                     <div className="lg:col-span-2 bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg border border-white/10 hover:shadow-xl transition-all duration-300 group flex flex-col">
                         <div className="flex justify-between items-center gap-3 mb-6 cursor-pointer">
                             <h3 className="text-xl md:text-2xl font-[Rye] tracking-widest font-medium text-white group-hover:text-orange-400 transition-colors duration-300">
-                                About Our NSS
+                                About NSS
                             </h3>
                             <span className="text-orange-400 text-xl group-hover:translate-x-1 transition-transform duration-300"><ArrowUpRight /></span>
                         </div>

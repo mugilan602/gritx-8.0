@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { motion, useAnimation, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FaTrophy, FaUsers } from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-// Floating Video Component - Fast, continuous animation
+// Floating Video Component
 const FloatingVideo = ({ index, isMobile }) => {
-    const baseDelay = index * 0.2; // Stagger start times quickly
+    const baseDelay = index * 0.2;
+    // ✅ FIX: Define a buffer to ensure videos don't go off-screen
+    const buffer = 80;
 
     return (
         <motion.video
@@ -20,32 +22,34 @@ const FloatingVideo = ({ index, isMobile }) => {
                 filter: `hue-rotate(${index * 60}deg)`
             }}
             animate={{
+                // ✅ FIX: Subtract buffer from window width/height to prevent overflow
                 x: [
-                    Math.random() * window.innerWidth,
-                    Math.random() * window.innerWidth,
-                    Math.random() * window.innerWidth,
-                    Math.random() * window.innerWidth
+                    Math.random() * (window.innerWidth - buffer),
+                    Math.random() * (window.innerWidth - buffer),
+                    Math.random() * (window.innerWidth - buffer),
+                    Math.random() * (window.innerWidth - buffer)
                 ],
                 y: [
-                    Math.random() * window.innerHeight,
-                    Math.random() * window.innerHeight,
-                    Math.random() * window.innerHeight,
-                    Math.random() * window.innerHeight
+                    Math.random() * (window.innerHeight - buffer),
+                    Math.random() * (window.innerHeight - buffer),
+                    Math.random() * (window.innerHeight - buffer),
+                    Math.random() * (window.innerHeight - buffer)
                 ],
                 rotate: [0, 180, 360, 540],
                 scale: [0.8, 1.2, 0.9, 1.1]
             }}
             transition={{
-                duration: 8, // Faster overall cycle
+                duration: 8,
                 delay: baseDelay,
                 repeat: Infinity,
                 ease: "linear",
-                times: [0, 0.33, 0.66, 1] // Even distribution
+                times: [0, 0.33, 0.66, 1]
             }}
             initial={{
                 opacity: 0.6,
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight
+                // ✅ FIX: Use the same corrected logic for initial position
+                x: Math.random() * (window.innerWidth - buffer),
+                y: Math.random() * (window.innerHeight - buffer)
             }}
             autoPlay
             loop
@@ -63,17 +67,15 @@ export default function AnimatedEventPage({ eventData }) {
     const numberOfVideos = isMobile ? 3 : 4;
 
     useEffect(() => {
-        // Initialize AOS with faster settings and repeating animations
         AOS.init({
-            duration: 400, // Much faster duration
-            easing: 'ease-out-quart', // Snappier easing
-            once: false, // Allow animations to repeat
-            mirror: true, // Animate out when scrolling up past trigger
-            offset: 50, // Trigger animations earlier
-            delay: 0 // No delay
+            duration: 400,
+            easing: 'ease-out-quart',
+            once: false,
+            mirror: true,
+            offset: 50,
+            delay: 0
         });
 
-        // Handle window resize
         const handleResize = () => setWidth(window.innerWidth);
         window.addEventListener('resize', handleResize);
 
@@ -84,8 +86,8 @@ export default function AnimatedEventPage({ eventData }) {
     }, []);
 
     return (
-        <div className="text-white bg-black min-h-screen">
-            {/* Multiple Floating Video Animations */}
+        // ✅ FIX: Added overflow-x-hidden to the root container to prevent any horizontal scroll
+        <div className="text-white bg-black min-h-screen overflow-x-hidden">
             {Array.from({ length: numberOfVideos }).map((_, index) => (
                 <FloatingVideo key={index} index={index} isMobile={isMobile} />
             ))}

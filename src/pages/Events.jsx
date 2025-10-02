@@ -1,46 +1,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
-
-// --- 1. Updated Data for Events ---
-const eventsData = [
-    {
-        id: 1,
-        icon: "🎤",
-        title: "Tech Summit 2025",
-        description: "Join industry leaders for a deep dive into the future of technology.",
-        hueA: 340,
-        hueB: 10,
-        link: "/tech-summit",
-    },
-    {
-        id: 2,
-        icon: "🎨",
-        title: "Design Forward",
-        description: "A creative conference for designers and innovators to share ideas.",
-        hueA: 20,
-        hueB: 40,
-        link: "/design-forward",
-    },
-    {
-        id: 3,
-        icon: "🚀",
-        title: "Startup Showcase",
-        description: "Discover the next generation of startups and network with founders.",
-        hueA: 60,
-        hueB: 90,
-        link: "/startup-showcase",
-    },
-    {
-        id: 4,
-        icon: "📈",
-        title: "Marketing Week",
-        description: "Learn the latest trends in digital marketing and brand strategy.",
-        hueA: 80,
-        hueB: 120,
-        link: "/marketing-week",
-    },
-];
+import { eventsData, getTechnicalEvents, getNonTechnicalEvents } from "../data/eventsData"
 
 /**
  * @typedef {Object} Event
@@ -53,6 +14,9 @@ const eventsData = [
  */
 
 export default function EventsPage() {
+    const technicalEvents = getTechnicalEvents();
+    const nonTechnicalEvents = getNonTechnicalEvents();
+
     return (
         <div className="min-h-screen bg-black py-12 px-4">
             <div className="max-w-8xl mx-auto">
@@ -62,7 +26,7 @@ export default function EventsPage() {
                         Technical Events
                     </h1>
                     <div style={container}>
-                        {eventsData.map((event) => (
+                        {technicalEvents.map((event) => (
                             <Card event={event} key={event.id} />
                         ))}
                     </div>
@@ -74,7 +38,7 @@ export default function EventsPage() {
                         Non-Technical Events
                     </h1>
                     <div style={container}>
-                        {eventsData.map((event) => (
+                        {nonTechnicalEvents.map((event) => (
                             <Card event={event} key={event.id} />
                         ))}
                     </div>
@@ -97,7 +61,23 @@ function Card({ event }) {
             <div style={{ ...splash, background }} />
             <motion.div style={card} variants={cardVariants}>
                 <div style={cardContent}>
-                    <div style={iconContainer}>{event.icon}</div>
+                    <div style={iconContainer}>
+                        <img
+                            src={event.icon}
+                            alt={`${event.title} icon`}
+                            style={{
+                                width: '56px',
+                                height: '56px',
+                                objectFit: 'contain',
+                                borderRadius: '8px'
+                            }}
+                            onError={(e) => {
+                                e.target.style.display = 'none';
+                                e.target.nextSibling.style.display = 'block';
+                            }}
+                        />
+                        <div style={{ display: 'none', fontSize: '3.5rem' }}>🎯</div>
+                    </div>
                     <h3 style={titleStyle}>{event.title}</h3>
                     <p style={descriptionStyle}>{event.description}</p>
                     <Link to={event.link} style={{ textDecoration: 'none' }}>
@@ -143,7 +123,7 @@ const container = {
     width: "100%",
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-    gap: "7rem",
+    gap: "4rem",
     alignItems: "start",
     "@media (min-width: 768px)": {
         maxWidth: "1200px",

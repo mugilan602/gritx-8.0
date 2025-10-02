@@ -9,6 +9,7 @@ import ScrollToTop from './components/ScrollToTop';
 import { useSectionContext } from './context/SectionContext.jsx';
 import AnimatedEventPage from './components/AnimatedEventPage.jsx';
 import EventPage from './pages/EventPage.jsx';
+import DynamicEventPage from './pages/DynamicEventPage.jsx';
 import Carousel from './components/Carousel.jsx';
 import PerspectiveCarousel from './components/Carousel.jsx';
 
@@ -57,6 +58,31 @@ function App() {
           <Route path="/" element={<Landing heroSectionRef={heroSectionRef} aboutSectionRef={aboutSectionRef} />} />
           <Route path="/events" element={<Events />} />
           <Route path="/eventpage" element={<EventPage />} />
+
+          {/* Dynamic Event Routes */}
+          <Route path="/projectrix" element={<DynamicEventPage />} />
+          <Route path="/code2cosmos" element={<DynamicEventPage />} />
+          <Route path="/roll-and-rule" element={<DynamicEventPage />} />
+          <Route path="/script2screen" element={<DynamicEventPage />} />
+          <Route path="/huntxcape" element={<DynamicEventPage />} />
+          <Route path="/jockey-junction" element={<DynamicEventPage />} />
+          <Route path="/sportsera" element={<DynamicEventPage />} />
+          <Route path="/e-football" element={<DynamicEventPage />} />
+          <Route path="/cinimax" element={<DynamicEventPage />} />
+          <Route path="/campus-ambassador" element={<DynamicEventPage />} />
+          <Route path="/frozen-frames" element={<DynamicEventPage />} />
+          <Route path="/design-dash" element={<DynamicEventPage />} />
+          <Route path="/the-debate-saga" element={<DynamicEventPage />} />
+          <Route path="/web-vibe" element={<DynamicEventPage />} />
+          <Route path="/bug-blaze" element={<DynamicEventPage />} />
+          <Route path="/the-reel-showdown" element={<DynamicEventPage />} />
+          <Route path="/mini-hackathon" element={<DynamicEventPage />} />
+          <Route path="/cine-spark" element={<DynamicEventPage />} />
+          <Route path="/paper-presentation" element={<DynamicEventPage />} />
+
+          {/* Alternative: Single dynamic route (choose one approach) */}
+          {/* <Route path="/event/:slug" element={<DynamicEventPage />} /> */}
+
           <Route path="/carousel" element={<div style={{
             width: '100vw',
             height: '100vh',

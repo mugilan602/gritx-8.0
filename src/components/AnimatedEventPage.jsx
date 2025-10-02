@@ -66,6 +66,18 @@ export default function AnimatedEventPage({ eventData }) {
     const isMobile = width < 768;
     const numberOfVideos = isMobile ? 3 : 4;
 
+    // Handle both array and single event object
+    const event = Array.isArray(eventData) ? eventData[0] : eventData;
+
+    // Safety check - return early if no event data
+    if (!event) {
+        return (
+            <div className="text-white bg-black min-h-screen flex items-center justify-center">
+                <p className="text-xl">No event data available</p>
+            </div>
+        );
+    }
+
     useEffect(() => {
         AOS.init({
             duration: 400,
@@ -101,9 +113,9 @@ export default function AnimatedEventPage({ eventData }) {
                     transition={{ duration: 0.4, ease: "easeOut" }}
                 >
                     <motion.img
-                        src={eventData.logoUrl}
-                        alt={`${eventData.name} Logo`}
-                        className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-gray-800 p-2 shadow-md border border-gray-700 mb-4 sm:mb-6"
+                        src={event.logoUrl}
+                        alt={`${event.name} Logo`}
+                        className="w-24 h-24 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-gray-800 p-2 shadow-md border border-gray-700 mb-4 sm:mb-6"
                         initial={{ scale: 0, rotate: -90 }}
                         animate={{ scale: 1, rotate: 0 }}
                         transition={{ duration: 0.5, delay: 0.1, type: "spring", stiffness: 300, damping: 20 }}
@@ -115,7 +127,7 @@ export default function AnimatedEventPage({ eventData }) {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3, delay: 0.2 }}
                     >
-                        {eventData.name}
+                        {event.name}
                     </motion.h1>
                     <motion.p
                         className="mt-3 sm:mt-4 text-sm sm:text-base font-[pirata_one] tracking-widest md:text-lg lg:text-2xl text-gray-300 leading-relaxed text-center max-w-2xl sm:max-w-lg md:max-w-4xl lg:max-w-6xl mx-auto px-4"
@@ -123,8 +135,21 @@ export default function AnimatedEventPage({ eventData }) {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.4, delay: 0.3 }}
                     >
-                        {eventData.description}
+                        {event.description}
                     </motion.p>
+                    <motion.a
+                        href="https://forms.gle/YOUR-FORM-ID-HERE" // <-- Replace with your Google Form link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-8 px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold text-lg rounded-full shadow-lg transition-all duration-300 hover:shadow-purple-500/50"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.5 }}
+                        whileHover={{ scale: 1.05, y: -5 }}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        Register Now
+                    </motion.a>
                 </motion.div>
 
                 {/* Section 2: Event Rounds */}
@@ -145,10 +170,10 @@ export default function AnimatedEventPage({ eventData }) {
                         Event Rounds
                     </motion.h2>
                     <div className="space-y-8 max-w-7xl mx-auto">
-                        {eventData.rounds.map((round, index) => (
+                        {event.rounds && event.rounds.map((round, index) => (
                             <motion.div
                                 key={round.id}
-                                className="bg-gradient-to-br from-gray-900 via-gray-800 to-black border border-gray-700 p-6 sm:p-8 md:p-10 rounded-2xl shadow-2xl"
+                                className="bg-gradient-to-br from-gray-600 via-gray-700 to-gray-900 border border-gray-700 p-6 sm:p-8 md:p-10 rounded-2xl shadow-2xl"
                                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: false, amount: 0.2 }}
@@ -211,7 +236,7 @@ export default function AnimatedEventPage({ eventData }) {
                                 <FaTrophy className="mx-auto text-white mb-3" size={isMobile ? 32 : 40} />
                             </motion.div>
                             <h3 className="font-bold text-lg sm:text-xl md:text-2xl text-white mb-2">1st Prize</h3>
-                            <p className="text-yellow-100 text-sm sm:text-base">{eventData.details.prizes.first}</p>
+                            <p className="text-yellow-100 text-sm sm:text-base">{event.details?.prizes?.first || 'TBD'}</p>
                         </motion.div>
 
                         <motion.div
@@ -232,7 +257,7 @@ export default function AnimatedEventPage({ eventData }) {
                                 <FaTrophy className="mx-auto text-white mb-3" size={isMobile ? 32 : 40} />
                             </motion.div>
                             <h3 className="font-bold text-lg sm:text-xl md:text-2xl text-white mb-2">2nd Prize</h3>
-                            <p className="text-gray-100 text-sm sm:text-base">{eventData.details.prizes.second}</p>
+                            <p className="text-gray-100 text-sm sm:text-base">{event.details?.prizes?.second || 'TBD'}</p>
                         </motion.div>
 
                         <motion.div
@@ -253,7 +278,7 @@ export default function AnimatedEventPage({ eventData }) {
                                 <FaTrophy className="mx-auto text-white mb-3" size={isMobile ? 32 : 40} />
                             </motion.div>
                             <h3 className="font-bold text-lg sm:text-xl md:text-2xl text-white mb-2">3rd Prize</h3>
-                            <p className="text-amber-100 text-sm sm:text-base">{eventData.details.prizes.third}</p>
+                            <p className="text-amber-100 text-sm sm:text-base">{event.details?.prizes?.third || 'TBD'}</p>
                         </motion.div>
 
                         <motion.div
@@ -274,7 +299,7 @@ export default function AnimatedEventPage({ eventData }) {
                                 <FaUsers className="mx-auto text-white mb-3" size={isMobile ? 32 : 40} />
                             </motion.div>
                             <h3 className="font-bold text-lg sm:text-xl md:text-2xl text-white mb-2">Team Size</h3>
-                            <p className="text-blue-100 text-sm sm:text-base">{eventData.details.teamSize}</p>
+                            <p className="text-blue-100 text-sm sm:text-base">{event.details?.teamSize || 'TBD'}</p>
                         </motion.div>
                     </div>
                 </motion.div>
@@ -297,7 +322,7 @@ export default function AnimatedEventPage({ eventData }) {
                         Meet the Coordinators
                     </motion.h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                        {eventData.coordinators.map((coordinator, index) => (
+                        {event.coordinators && event.coordinators.map((coordinator, index) => (
                             <motion.div
                                 key={coordinator.id}
                                 className="bg-gradient-to-br from-gray-800 via-gray-900 to-black p-8 rounded-2xl text-center border border-gray-700 shadow-2xl"
@@ -345,7 +370,7 @@ export default function AnimatedEventPage({ eventData }) {
                                 >
                                     {coordinator.name}
                                 </motion.h3>
-                               
+
                             </motion.div>
                         ))}
                     </div>

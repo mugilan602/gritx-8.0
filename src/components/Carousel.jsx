@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { TiChevronLeftOutline, TiChevronRightOutline } from 'react-icons/ti';
 
 // --- CSS Styles ---
@@ -289,14 +290,12 @@ const Card = ({ icon, title, description, link }) => (
     <h2>{title}</h2>
     <p>{description}</p>
     {link && (
-      <a
-        href={link}
-        target="_blank"
-        rel="noopener noreferrer"
+      <Link
+        to={link}
         className="know-more-btn"
       >
         Know More
-      </a>
+      </Link>
     )}
   </div>
 );

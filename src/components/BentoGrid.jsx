@@ -28,7 +28,7 @@ const BentoGrid = () => {
         };
     }, []);
 
-    const partnerLogos = Array.from({ length: 11 }, (_, i) => (
+    const partnerLogos = Array.from({ length: 19 }, (_, i) => (
         <div key={`logo-${i + 1}`} className="flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-lg flex items-center justify-center mx-2">
             <img
                 src={`/logo${i + 1}.png`}

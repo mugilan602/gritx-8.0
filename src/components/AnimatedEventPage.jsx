@@ -63,12 +63,12 @@ export default function AnimatedEventPage({ eventData }) {
     const numberOfVideos = isMobile ? 3 : 4;
 
     useEffect(() => {
-        // Initialize AOS with faster settings
+        // Initialize AOS with faster settings and repeating animations
         AOS.init({
             duration: 400, // Much faster duration
             easing: 'ease-out-quart', // Snappier easing
-            once: true, // Only animate once for better performance
-            mirror: false,
+            once: false, // Allow animations to repeat
+            mirror: true, // Animate out when scrolling up past trigger
             offset: 50, // Trigger animations earlier
             delay: 0 // No delay
         });
@@ -130,14 +130,14 @@ export default function AnimatedEventPage({ eventData }) {
                     className="py-16 px-4 sm:px-6 md:px-8"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    viewport={{ once: true, amount: 0.2 }}
+                    viewport={{ once: false, amount: 0.2 }}
                     transition={{ duration: 0.3 }}
                 >
                     <motion.h2
                         className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: false }}
                         transition={{ duration: 0.4 }}
                     >
                         Event Rounds
@@ -149,7 +149,7 @@ export default function AnimatedEventPage({ eventData }) {
                                 className="bg-gradient-to-br from-gray-900 via-gray-800 to-black border border-gray-700 p-6 sm:p-8 md:p-10 rounded-2xl shadow-2xl"
                                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                                 whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true, amount: 0.2 }}
+                                viewport={{ once: false, amount: 0.2 }}
                                 transition={{
                                     duration: 0.4,
                                     delay: index * 0.05,
@@ -166,6 +166,7 @@ export default function AnimatedEventPage({ eventData }) {
                                     className="flex items-center mb-6"
                                     initial={{ opacity: 0 }}
                                     whileInView={{ opacity: 1 }}
+                                    viewport={{ once: false }}
                                     transition={{ delay: 0.1 }}
                                 >
                                     <span className="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-bold px-4 py-2 rounded-full mr-4">
@@ -188,14 +189,14 @@ export default function AnimatedEventPage({ eventData }) {
                     className="py-16 px-4 sm:px-6 md:px-8"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    viewport={{ once: true, amount: 0.2 }}
+                    viewport={{ once: false, amount: 0.2 }}
                     transition={{ duration: 0.3 }}
                 >
                     <motion.h2
                         className="text-3xl sm:text-4xl md:text-5xl font-bold mb-12 text-center"
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: false }}
                         transition={{ duration: 0.4 }}
                     >
                         Prizes & Details
@@ -205,7 +206,7 @@ export default function AnimatedEventPage({ eventData }) {
                             className="bg-gradient-to-br from-yellow-600 via-yellow-700 to-yellow-800 p-6 rounded-2xl text-center border border-yellow-500 shadow-xl"
                             initial={{ opacity: 0, y: 30, scale: 0.9 }}
                             whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: false }}
                             transition={{ duration: 0.3, delay: 0.05, type: "spring", stiffness: 300 }}
                             whileHover={{
                                 scale: 1.08,
@@ -226,7 +227,7 @@ export default function AnimatedEventPage({ eventData }) {
                             className="bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700 p-6 rounded-2xl text-center border border-gray-400 shadow-xl"
                             initial={{ opacity: 0, y: 30, scale: 0.9 }}
                             whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: false }}
                             transition={{ duration: 0.3, delay: 0.1, type: "spring", stiffness: 300 }}
                             whileHover={{
                                 scale: 1.08,
@@ -247,7 +248,7 @@ export default function AnimatedEventPage({ eventData }) {
                             className="bg-gradient-to-br from-amber-600 via-amber-700 to-amber-800 p-6 rounded-2xl text-center border border-amber-500 shadow-xl"
                             initial={{ opacity: 0, y: 30, scale: 0.9 }}
                             whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: false }}
                             transition={{ duration: 0.3, delay: 0.15, type: "spring", stiffness: 300 }}
                             whileHover={{
                                 scale: 1.08,
@@ -268,7 +269,7 @@ export default function AnimatedEventPage({ eventData }) {
                             className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 p-6 rounded-2xl text-center border border-blue-500 shadow-xl"
                             initial={{ opacity: 0, y: 30, scale: 0.9 }}
                             whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: false }}
                             transition={{ duration: 0.3, delay: 0.2, type: "spring", stiffness: 300 }}
                             whileHover={{
                                 scale: 1.08,
@@ -292,14 +293,14 @@ export default function AnimatedEventPage({ eventData }) {
                     className="py-16 px-4 sm:px-6 md:px-8"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    viewport={{ once: true, amount: 0.2 }}
+                    viewport={{ once: false, amount: 0.2 }}
                     transition={{ duration: 0.3 }}
                 >
                     <motion.h2
                         className="text-3xl sm:text-4xl md:text-5xl font-bold mb-12 text-center"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: false }}
                         transition={{ duration: 0.4 }}
                     >
                         Meet the Coordinators
@@ -311,7 +312,7 @@ export default function AnimatedEventPage({ eventData }) {
                                 className="bg-gradient-to-br from-gray-800 via-gray-900 to-black p-8 rounded-2xl text-center border border-gray-700 shadow-2xl"
                                 initial={{ opacity: 0, scale: 0.9, y: 30 }}
                                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.2 }}
+                                viewport={{ once: false, amount: 0.2 }}
                                 transition={{
                                     duration: 0.4,
                                     delay: index * 0.08,
@@ -335,6 +336,7 @@ export default function AnimatedEventPage({ eventData }) {
                                         className="w-32 h-32 mx-auto rounded-full border-4 border-gradient-to-r from-blue-500 to-purple-600 shadow-xl"
                                         initial={{ scale: 0.8, rotate: -45 }}
                                         whileInView={{ scale: 1, rotate: 0 }}
+                                        viewport={{ once: false }}
                                         transition={{ duration: 0.4, delay: index * 0.05 + 0.1 }}
                                         whileHover={{ rotate: 8, transition: { duration: 0.15 } }}
                                     />
@@ -347,6 +349,7 @@ export default function AnimatedEventPage({ eventData }) {
                                     className="text-xl sm:text-2xl font-bold text-white mb-2"
                                     initial={{ opacity: 0, y: 15 }}
                                     whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: false }}
                                     transition={{ delay: index * 0.05 + 0.2, duration: 0.3 }}
                                 >
                                     {coordinator.name}
@@ -355,6 +358,7 @@ export default function AnimatedEventPage({ eventData }) {
                                     className="text-gray-400 text-sm sm:text-base"
                                     initial={{ opacity: 0 }}
                                     whileInView={{ opacity: 1 }}
+                                    viewport={{ once: false }}
                                     transition={{ delay: index * 0.05 + 0.3, duration: 0.3 }}
                                 >
                                     {coordinator.role}

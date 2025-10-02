@@ -95,7 +95,7 @@ export default function AnimatedEventPage({ eventData }) {
             <div className="relative z-20">
                 {/* Section 1: Header */}
                 <motion.div
-                    className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8"
+                    className="flex flex-col items-center justify-center min-h-screen sm:p-6 md:p-8"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
@@ -110,7 +110,7 @@ export default function AnimatedEventPage({ eventData }) {
                         whileHover={{ scale: 1.15, rotate: 10, transition: { duration: 0.2 } }}
                     />
                     <motion.h1
-                        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white text-center px-2"
+                        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium font-[rye] tracking-widest text-white text-center px-2"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3, delay: 0.2 }}
@@ -118,7 +118,7 @@ export default function AnimatedEventPage({ eventData }) {
                         {eventData.name}
                     </motion.h1>
                     <motion.p
-                        className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed text-center max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto px-4"
+                        className="mt-3 sm:mt-4 text-sm sm:text-base font-[pirata_one] tracking-widest md:text-lg lg:text-2xl text-gray-300 leading-relaxed text-center max-w-2xl sm:max-w-lg md:max-w-4xl lg:max-w-6xl mx-auto px-4"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.4, delay: 0.3 }}
@@ -136,7 +136,7 @@ export default function AnimatedEventPage({ eventData }) {
                     transition={{ duration: 0.3 }}
                 >
                     <motion.h2
-                        className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12"
+                        className="text-3xl sm:text-4xl md:text-5xl font-medium font-[rye] tracking-widest text-center mb-12"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: false }}
@@ -144,7 +144,7 @@ export default function AnimatedEventPage({ eventData }) {
                     >
                         Event Rounds
                     </motion.h2>
-                    <div className="space-y-8 max-w-6xl mx-auto">
+                    <div className="space-y-8 max-w-7xl mx-auto">
                         {eventData.rounds.map((round, index) => (
                             <motion.div
                                 key={round.id}
@@ -164,21 +164,10 @@ export default function AnimatedEventPage({ eventData }) {
                                     transition: { duration: 0.2 }
                                 }}
                             >
-                                <motion.div
-                                    className="flex items-center mb-6"
-                                    initial={{ opacity: 0 }}
-                                    whileInView={{ opacity: 1 }}
-                                    viewport={{ once: false }}
-                                    transition={{ delay: 0.1 }}
-                                >
-                                    <span className="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-bold px-4 py-2 rounded-full mr-4">
-                                        Round {index + 1}
-                                    </span>
-                                </motion.div>
-                                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4 text-center">
+                                <h3 className="text-xl sm:text-2xl md:text-3xl font-medium font-[rye] tracking-widest text-white mb-4 text-center">
                                     {round.title}
                                 </h3>
-                                <p className="text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed text-center">
+                                <p className="text-base sm:text-base md:text-xl text-gray-300 leading-relaxed text-center font-[pirata_one] tracking-widest">
                                     {round.description}
                                 </p>
                             </motion.div>
@@ -195,7 +184,7 @@ export default function AnimatedEventPage({ eventData }) {
                     transition={{ duration: 0.3 }}
                 >
                     <motion.h2
-                        className="text-3xl sm:text-4xl md:text-5xl font-bold mb-12 text-center"
+                        className="text-3xl sm:text-4xl md:text-5xl font-medium font-[rye] tracking-widest mb-12 text-center"
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: false }}
@@ -299,7 +288,7 @@ export default function AnimatedEventPage({ eventData }) {
                     transition={{ duration: 0.3 }}
                 >
                     <motion.h2
-                        className="text-3xl sm:text-4xl md:text-5xl font-bold mb-12 text-center"
+                        className="text-3xl sm:text-4xl md:text-5xl font-medium font-[rye] tracking-widest mb-12 text-center"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: false }}
@@ -348,7 +337,7 @@ export default function AnimatedEventPage({ eventData }) {
                                     />
                                 </motion.div>
                                 <motion.h3
-                                    className="text-xl sm:text-2xl font-bold text-white mb-2"
+                                    className="text-xl sm:text-2xl font-medium font-[pirata_one] tracking-widest text-white mb-2"
                                     initial={{ opacity: 0, y: 15 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: false }}
@@ -356,15 +345,7 @@ export default function AnimatedEventPage({ eventData }) {
                                 >
                                     {coordinator.name}
                                 </motion.h3>
-                                <motion.p
-                                    className="text-gray-400 text-sm sm:text-base"
-                                    initial={{ opacity: 0 }}
-                                    whileInView={{ opacity: 1 }}
-                                    viewport={{ once: false }}
-                                    transition={{ delay: index * 0.05 + 0.3, duration: 0.3 }}
-                                >
-                                    {coordinator.role}
-                                </motion.p>
+                               
                             </motion.div>
                         ))}
                     </div>

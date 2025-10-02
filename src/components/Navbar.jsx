@@ -101,7 +101,7 @@ const Navbar = () => {
                                             onClick={(e) => handleNavClick(e, link)}
                                             className={` font-[Pirata_One] tracking-widest text-5xl font-medium transition-colors duration-300
                                                 ${location.pathname === link.path && !link.section
-                                                    ? 'text-blue-400'
+                                                    ? 'text-black'
                                                     : 'text-gray-200 hover:text-white'
                                                 }
                                             `}
@@ -135,7 +135,7 @@ const Navbar = () => {
                                             onClick={(e) => handleNavClick(e, link)}
                                             className={` font-[pirata_one] tracking-widest text-4xl font-medium transition-colors duration-300
                                                 ${location.pathname === link.path && !link.section
-                                                    ? 'text-blue-400'
+                                                    ? 'text-black'
                                                     : 'text-gray-200 hover:text-white'
                                                 }
                                             `}

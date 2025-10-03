@@ -18,7 +18,7 @@ export default function EventsPage() {
     const nonTechnicalEvents = getNonTechnicalEvents();
 
     return (
-        <div className="min-h-screen bg-black py-12 px-4">
+        <div className="min-h-screen bg-black py-12 sm:px-4">
             <div className="max-w-8xl mx-auto">
                 <div className="mb-16">
                     {/* ✅ FIX: Added relative z-10 to make the heading visible */}
@@ -123,7 +123,7 @@ const container = {
     width: "100%",
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-    gap: "4rem",
+    gap: "5rem",
     alignItems: "start",
     "@media (min-width: 768px)": {
         maxWidth: "1200px",

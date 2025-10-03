@@ -577,8 +577,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                 <div className="w-full md:w-4/6 pr-0 md:px-16 mb-8 md:mb-0 relative z-30 md:z-auto">
                     <h2 className="font-[Rye] text-3xl md:text-4xl font-medium tracking-wider mb-4">About GRITX 8.0</h2>
                     <p className="text-gray-300  font-[Pirata_One] tracking-widest text-xl md:text-2xl">
-                        GRITX represents the pinnacle of design and engineering. Our philosophy is rooted in precision, strength, and a forward-thinking approach to solve complex challenges. We build solutions that are not only robust but also elegant and intuitive.
-                    </p>
+Welcome to GRITX 8.0, the eighth edition of our annual National Service Scheme symposium where grit, innovation, and social responsibility converge. This year, we present a dynamic fusion of 19 technical and non-technical events, meticulously designed to challenge the brightest minds and ignite the most creative spirits. From intense hackathons and debugging challenges to cinematic showcases and strategic debates</p>
                 </div>
             </section>
 
@@ -610,7 +609,7 @@ export default function Landing({ heroSectionRef, aboutSectionRef }) {
                         Explore Our Events
                     </h2>
                     <p className="text-gray-300 text-lg md:text-2xl max-w-4xl font-[Pirata_one] tracking-widest mx-auto">
-                        Discover the diverse range of competitions, workshops, and activities that make GRITX 8.0 an unforgettable experience. Each event is designed to challenge, inspire, and celebrate innovation.
+                        Discover the diverse range of competitions, workshops, and activities that make GRITX 8.0 an unforgettable experience. With a lineup of 19 unique events, each is designed to challenge, inspire, and celebrate innovation.
                     </p>
                 </div>
                 <div className="w-full flex justify-center">

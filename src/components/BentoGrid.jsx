@@ -67,17 +67,14 @@ const BentoGrid = () => {
                         <div className="flex flex-col sm:flex-row gap-6 items-start flex-1">
                             <div className="w-full sm:w-1/2 h-48 md:h-56 lg:h-full flex-shrink-0">
                                 <img
-                                    src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop&crop=entropy&auto=format"
+                                    src="/college.jpg"
                                     alt="Featured Project"
                                     className="w-full h-full object-cover rounded-xl shadow-md"
                                 />
                             </div>
                             <div className="w-full sm:w-1/2 flex flex-col justify-center">
-                                <h4 className="text-lg md:text-xl font-medium text-white mb-4 font-[Rye] tracking-widest">
-                                    Sri Sairam Engineering College
-                                </h4>
                                 <p className="text-gray-300 font-[Poppins] tracking-wider text-sm md:text-base leading-relaxed">
-                                    Discover cutting-edge technologies and modern development practices that shape the future of web applications.
+                                    Sri Sairam Engineering College, established in 1995 and located in West Tambaram, Chennai, is a reputed private engineering institution managed by the Sairam Educational Trust. The college is affiliated with Anna University, approved by AICTE, and accredited with NAAC “A+” along with NBA accreditation for several programs.
                                 </p>
                             </div>
                         </div>
@@ -157,24 +154,13 @@ const BentoGrid = () => {
                                 />
                             </div>
                             <div className="w-full sm:w-1/2 flex flex-col justify-center">
-                                <h4 className="text-lg md:text-xl font-medium text-white mb-4 font-[Rye] tracking-widest">
-                                    Sri Sairam Engineering College
-                                </h4>
                                 <p className="text-gray-300 font-[Poppins] tracking-wider text-sm md:text-base leading-relaxed">
-                                    Discover cutting-edge technologies and modern development practices that shape the future of web applications.
+                                    The National Service Scheme (NSS) in Sri Sairam Engineering College actively engages students in social and community development activities alongside their academics. The initiatives include blood donation drives, medical camps, environmental protection programs, voter awareness campaigns, drug abuse prevention rallies, and rural outreach for education and development.
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                </div>
-            </div>
-
-            {/* Second Grid Section */}
-            <div className='mt-8 w-full max-w-8xl mx-auto px-4 md:px-8'>
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8'>
-                    <img className='w-full h-full object-cover rounded-xl' src="/mockup.png" alt="Mockup 1" />
-                    <img className='w-full h-full object-cover rounded-xl' src="/mockup3.png" alt="Mockup 2" />
                 </div>
             </div>
         </>

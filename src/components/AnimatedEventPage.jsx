@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaTrophy, FaUsers } from 'react-icons/fa';
+import { ChevronsDown } from 'lucide-react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 // Floating Video Component
 const FloatingVideo = ({ index, isMobile }) => {
     const baseDelay = index * 0.2;
-    // ✅ FIX: Define a buffer to ensure videos don't go off-screen
     const buffer = 80;
 
     return (
@@ -22,7 +22,6 @@ const FloatingVideo = ({ index, isMobile }) => {
                 filter: `hue-rotate(${index * 60}deg)`
             }}
             animate={{
-                // ✅ FIX: Subtract buffer from window width/height to prevent overflow
                 x: [
                     Math.random() * (window.innerWidth - buffer),
                     Math.random() * (window.innerWidth - buffer),
@@ -47,7 +46,6 @@ const FloatingVideo = ({ index, isMobile }) => {
             }}
             initial={{
                 opacity: 0.6,
-                // ✅ FIX: Use the same corrected logic for initial position
                 x: Math.random() * (window.innerWidth - buffer),
                 y: Math.random() * (window.innerHeight - buffer)
             }}
@@ -63,13 +61,12 @@ const FloatingVideo = ({ index, isMobile }) => {
 
 export default function AnimatedEventPage({ eventData }) {
     const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+    const [showScrollIcon, setShowScrollIcon] = useState(true);
     const isMobile = width < 768;
     const numberOfVideos = isMobile ? 3 : 4;
 
-    // Handle both array and single event object
     const event = Array.isArray(eventData) ? eventData[0] : eventData;
 
-    // Safety check - return early if no event data
     if (!event) {
         return (
             <div className="text-white bg-black min-h-screen flex items-center justify-center">
@@ -89,20 +86,39 @@ export default function AnimatedEventPage({ eventData }) {
         });
 
         const handleResize = () => setWidth(window.innerWidth);
+        const handleScroll = () => {
+            if (window.scrollY > 50) setShowScrollIcon(false);
+            else setShowScrollIcon(true);
+        };
+
         window.addEventListener('resize', handleResize);
+        window.addEventListener('scroll', handleScroll);
 
         return () => {
             window.removeEventListener('resize', handleResize);
+            window.removeEventListener('scroll', handleScroll);
             AOS.refresh();
         };
     }, []);
 
     return (
-        // ✅ FIX: Added overflow-x-hidden to the root container to prevent any horizontal scroll
-        <div className="text-white bg-black min-h-screen overflow-x-hidden">
+        <div className="text-white bg-black min-h-screen overflow-x-hidden relative">
             {Array.from({ length: numberOfVideos }).map((_, index) => (
                 <FloatingVideo key={index} index={index} isMobile={isMobile} />
             ))}
+
+            {/* ✅ Mobile Scroll Indicator */}
+            {showScrollIcon && (
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ duration: 0.6 }}
+                    className="fixed bottom-0 left-1/2 transform -translate-x-1/2 text-white animate-bounce z-50"
+                >
+                    <ChevronsDown size={48} />
+                </motion.div>
+            )}
 
             <div className="relative z-20">
                 {/* Section 1: Header */}
@@ -138,7 +154,7 @@ export default function AnimatedEventPage({ eventData }) {
                         {event.description}
                     </motion.p>
                     <motion.a
-                        href={event.gform} // <-- Replace with your Google Form link
+                        href={event.gform}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="mt-8 px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold text-lg rounded-full shadow-lg transition-all duration-300 hover:shadow-purple-500/50"
@@ -357,20 +373,16 @@ export default function AnimatedEventPage({ eventData }) {
                                         whileHover={{ rotate: 8, transition: { duration: 0.15 } }}
                                     />
                                     <motion.div
-                                        className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 opacity-0"
-                                        whileHover={{ opacity: 0.2, transition: { duration: 0.2 } }}
-                                    />
+                                        className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 opacity-20 blur-2xl -z-10"
+                                        initial={{ opacity: 0 }}
+                                        whileHover={{ opacity: 0.5 }}
+                                        transition={{ duration: 0.3 }}
+                                    ></motion.div>
                                 </motion.div>
-                                <motion.h3
-                                    className="text-xl sm:text-2xl font-medium font-[pirata_one] tracking-widest text-white mb-2"
-                                    initial={{ opacity: 0, y: 15 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: false }}
-                                    transition={{ delay: index * 0.05 + 0.2, duration: 0.3 }}
-                                >
+                                <h3 className="text-xl sm:text-2xl font-semibold text-white mb-2">
                                     {coordinator.name}
-                                </motion.h3>
-
+                                </h3>
+                                <p className="text-gray-400 text-sm sm:text-base">{coordinator.phone}</p>
                             </motion.div>
                         ))}
                     </div>

@@ -4,30 +4,32 @@ import Photocard from './PhotoCard.jsx'; // Assuming Photocard.jsx is in the sam
 // Data for the photocards
 const teamMembers = [
     {
-        name: 'Sana Fathima S ',
-        imageUrl: '/mainleads/1.jpg'
+        name: 'Raghulnath P L',
+        imageUrl: '/mainleads/4.jpeg'
     },
     {
-        name: 'Varsha B',
-        imageUrl: '/mainleads/2.jpg'
+        name: 'Sana Fathima S ',
+        imageUrl: '/mainleads/1.jpg'
     },
     {
         name: 'Eswar S',
         imageUrl: '/mainleads/3.jpg'
     },
+
     {
-        name: 'Raghulnath P L',
-        imageUrl: '/mainleads/4.jpeg'
-    },
-    {
-        name: 'Swetha P',
-        imageUrl: '/mainleads/5.jpg'
+        name: 'Varsha B',
+        imageUrl: '/mainleads/2.jpg'
     },
     {
         name: 'Vijay Athithya S V',
         imageUrl: '/mainleads/6.jpg'
     },
 
+    {
+        name: 'Swetha P',
+        imageUrl: '/mainleads/5.jpg'
+    },
+ 
 
 ];
 

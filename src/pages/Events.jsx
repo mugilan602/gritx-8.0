@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
+import { ChevronsDown } from "lucide-react"
 import { eventsData, getTechnicalEvents, getNonTechnicalEvents } from "../data/eventsData"
 
 /**
@@ -16,9 +17,22 @@ import { eventsData, getTechnicalEvents, getNonTechnicalEvents } from "../data/e
 export default function EventsPage() {
     const technicalEvents = getTechnicalEvents();
     const nonTechnicalEvents = getNonTechnicalEvents();
+    const [showScrollIcon, setShowScrollIcon] = useState(true);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setShowScrollIcon(false);
+            } else {
+                setShowScrollIcon(true);
+            }
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return (
-        <div className="min-h-screen bg-black py-12 sm:px-4">
+        <div className="min-h-screen bg-black py-12 sm:px-4 relative">
             <div className="max-w-8xl mx-auto">
                 <div className="mb-16">
                     {/* ✅ FIX: Added relative z-10 to make the heading visible */}
@@ -44,6 +58,19 @@ export default function EventsPage() {
                     </div>
                 </div>
             </div>
+
+            {/* ✅ Scroll Down Icon */}
+            {showScrollIcon && (
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ duration: 0.6 }}
+                    className="sm:hidden fixed bottom-6 left-1/2 transform -translate-x-1/2 text-white animate-bounce z-50"
+                >
+                    <ChevronsDown size={48} />
+                </motion.div>
+            )}
         </div>
     )
 }

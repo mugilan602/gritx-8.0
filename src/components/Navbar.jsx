@@ -6,7 +6,6 @@ import { useSectionContext } from '../context/SectionContext.jsx';
 
 const navLinks = [
     { name: 'Home', path: '/', section: 'hero' },
-    { name: 'About', path: '/about', section: 'about' },
     { name: 'Events', path: '/events' },
     { name: 'Contact', path: '/contact', section: 'footer' }
 ];
@@ -21,15 +20,21 @@ const Navbar = () => {
         e.preventDefault();
         closeMenu();
 
+        // Handle Events navigation
         if (link.path === '/events') {
             navigate('/events');
             return;
         }
 
+        // Handle Contact - scroll to footer on current page
+        if (link.section === 'footer') {
+            scrollToSection(footerRef);
+            return;
+        }
+
+        // Handle Home navigation and scroll
         const doScroll = (section) => {
             if (section === 'hero') scrollToSection(heroSectionRef);
-            if (section === 'about') scrollToSection(aboutSectionRef);
-            if (section === 'footer') scrollToSection(footerRef);
         };
 
         if (location.pathname !== '/') {
@@ -97,7 +102,7 @@ const Navbar = () => {
                                         transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                                     >
                                         <a
-                                            href={link.path}
+                                            href={link.section === 'footer' ? '#' : link.path}
                                             onClick={(e) => handleNavClick(e, link)}
                                             className={` font-[Pirata_One] tracking-widest text-5xl font-medium transition-colors duration-300
                                                 ${location.pathname === link.path && !link.section
@@ -131,7 +136,7 @@ const Navbar = () => {
                                         transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                                     >
                                         <a
-                                            href={link.path}
+                                            href={link.section === 'footer' ? '#' : link.path}
                                             onClick={(e) => handleNavClick(e, link)}
                                             className={` font-[pirata_one] tracking-widest text-4xl font-medium transition-colors duration-300
                                                 ${location.pathname === link.path && !link.section

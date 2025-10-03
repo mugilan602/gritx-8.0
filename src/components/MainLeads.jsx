@@ -4,25 +4,30 @@ import Photocard from './PhotoCard.jsx'; // Assuming Photocard.jsx is in the sam
 // Data for the photocards
 const teamMembers = [
     {
-        name: 'Alex Johnson',
-        imageUrl: 'https://placehold.co/400x500/3498db/ffffff?text=Alex'
+        name: 'Sana Fathima S ',
+        imageUrl: '/mainleads/1.jpg'
     },
     {
-        name: 'Maria Garcia',
-        imageUrl: 'https://placehold.co/400x500/e74c3c/ffffff?text=Maria'
+        name: 'Varsha B',
+        imageUrl: '/mainleads/2.jpg'
     },
     {
-        name: 'James Smith',
-        imageUrl: 'https://placehold.co/400x500/2ecc71/ffffff?text=James'
+        name: 'Eswar S',
+        imageUrl: '/mainleads/3.jpg'
     },
     {
-        name: 'Priya Patel',
-        imageUrl: 'https://placehold.co/400x500/f1c40f/ffffff?text=Priya'
+        name: 'Raghulnath P L',
+        imageUrl: '/mainleads/4.jpeg'
     },
     {
-        name: 'Chen Wang',
-        imageUrl: 'https://placehold.co/400x500/9b59b6/ffffff?text=Chen'
+        name: 'Swetha P',
+        imageUrl: '/mainleads/5.jpg'
     },
+    {
+        name: 'Vijay Athithya S V',
+        imageUrl: '/mainleads/6.jpg'
+    },
+
 
 ];
 

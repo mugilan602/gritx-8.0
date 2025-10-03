@@ -16,7 +16,8 @@ export const code2cosmosEventData = {
             "first": "",
             "second": "",
             "third": ""
-        }
+        },
+        entryFee: "₹150 per team",
     },
     "coordinators": [
         {

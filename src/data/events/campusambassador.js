@@ -21,7 +21,7 @@ export const campusAmbassadorEventData = {
         { id: 2, name: "Viruthatchanan B E", imageUrl: "/coordinators/viruthatchanan.jpg" },
         { id: 3, name: "Nishanthini K", imageUrl: "/coordinators/nishanthini.png" },
         { id: 4, name: "Vasanth S", imageUrl: "/coordinators/vasanth.jpg" },
-        { id: 5, name: "Madhumitha V", imageUrl: "/coordinators/madhumitha.jpg" },
+        { id: 5, name: "Madhumitha V", imageUrl: "/coordinators/madhumithav.jpeg" },
     ],
 
 

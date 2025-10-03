@@ -1,37 +1,54 @@
 // Code2Cosmos Event Details
 export const code2cosmosEventData = {
-    name: "Code2Cosmos",
-    logoUrl: "/logo2.png",
-    description: "Code2Cosmos challenges developers to think beyond Earth, creating solutions for space exploration and cosmic challenges. This unique coding competition focuses on astronomical algorithms, satellite data processing, space mission simulations, and innovative solutions for interplanetary challenges.",
-    rounds: [
+    "name": "Code2Cosmos",
+    "logoUrl": "/logo2.png",
+    "description": "Code2Cosmos is a workshop event designed to provide participants with insights into Emerging Technologies, with a special emphasis on Space Technologies and Generative AI. The workshop will be facilitated by two distinguished resource persons, who will share their expertise and perspectives to enrich the participants’ knowledge. Entry Fee: ₹150.",
+    "rounds": [
         {
-            id: 1,
-            title: "Round 1: Cosmic Algorithms",
-            description: "Participants solve space-themed coding problems including orbital mechanics, trajectory calculations, and astronomical data processing. This round tests fundamental programming skills with a cosmic twist, requiring efficient algorithms for space-related computations.",
-        },
-        {
-            id: 2,
-            title: "Round 2: Mission Control Simulation",
-            description: "Teams develop software solutions for space mission scenarios like Mars rover navigation, satellite communication protocols, or space station management systems. Focus on real-time processing, fault tolerance, and mission-critical reliability.",
-        },
-        {
-            id: 3,
-            title: "Round 3: Innovation Challenge",
-            description: "Final round challenges teams to create groundbreaking solutions for future space exploration. Projects could include AI for space exploration, asteroid mining simulations, or interplanetary communication systems. Judged on innovation, technical excellence, and space applicability.",
-        },
+            "id": 1,
+            "title": "Workshop Session",
+            "description": "The workshop will cover Space-Related Technologies and Generative AI. Participants are required to bring their own laptop along with an Ethernet cable to actively engage in the practical sessions.\n\nResource Persons:\n- Prof. Dr. V. Sekkar (Scientist, VSSC, ISRO (Retd.) & Professor)\n- Mr. Arjun Anapalli (CEO, The CorporateWorms & ML/DS/DL Educator)"
+        }
     ],
-    details: {
-        teamSize: "2-3 Members",
-        prizes: {
-            first: "₹30,000 Cash Prize + Space Tech Internship Opportunity",
-            second: "₹18,000 Cash Prize + Astronomy Equipment",
-            third: "₹10,000 Cash Prize + Space Books & Merchandise",
-        },
+    "details": {
+        "teamSize": "Individual Participation",
+        "prizes": {
+            "first": "",
+            "second": "",
+            "third": ""
+        }
     },
-    coordinators: [
-        { id: 1, name: "Dr. Astriya Mehta", role: "Astrophysics Coordinator", imageUrl: "https://via.placeholder.com/150/1E40AF/FFFFFF?text=AM" },
-        { id: 2, name: "Cosmic Raj", role: "Coding Lead", imageUrl: "https://via.placeholder.com/150/7C2D12/FFFFFF?text=CR" },
-        { id: 3, name: "Stellar Gupta", role: "Technical Mentor", imageUrl: "https://via.placeholder.com/150/059669/FFFFFF?text=SG" },
+    "coordinators": [
+        {
+            "id": 1,
+            "name": "KOTTESHWARI G",
+            "imageUrl": "/coordinators/kotteshwari.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Mugilan A",
+            "imageUrl": "/coordinators/mugilan.jpg"
+        },
+        {
+            "id": 3,
+            "name": "Sathishwaran S",
+            "imageUrl": "/coordinators/sathish.jpg"
+        },
+        {
+            "id": 4,
+            "name": "Selvamanikandan S",
+            "imageUrl": "/coordinators/selvamanikandan.jpg"
+        },
+        {
+            "id": 5,
+            "name": "Gokula krishnaa S",
+            "imageUrl": "/coordinators/gokul.jpg"
+        },
+        {
+            "id": 6,
+            "name": "Mohana G U",
+            "imageUrl": "/coordinators/mohana.jpg"
+        }
     ],
-    gform: "https://forms.gle/code2cosmos-registration"
+    "gform": "https://forms.gle/your-registration-link-here"
 };

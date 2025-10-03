@@ -4,6 +4,7 @@ import { FaTrophy, FaUsers } from 'react-icons/fa';
 import { ChevronsDown } from 'lucide-react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import PhotoCard from './PhotoCard';
 
 // Floating Video Component
 const FloatingVideo = ({ index, isMobile }) => {
@@ -233,7 +234,28 @@ export default function AnimatedEventPage({ eventData }) {
                     >
                         Prizes & Details
                     </motion.h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
+                        <motion.div
+                            className="bg-gradient-to-br from-green-600 via-green-700 to-green-800 p-6 rounded-2xl text-center border border-green-500 shadow-xl"
+                            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            viewport={{ once: false }}
+                            transition={{ duration: 0.3, delay: 0.0, type: "spring", stiffness: 300 }}
+                            whileHover={{
+                                scale: 1.08,
+                                rotate: -2,
+                                transition: { duration: 0.2 }
+                            }}
+                        >
+                            <motion.div
+                                whileHover={{ scale: 1.3, rotate: -15, transition: { duration: 0.15 } }}
+                            >
+                                <div className="text-white text-3xl sm:text-4xl mb-3 mx-auto">💰</div>
+                            </motion.div>
+                            <h3 className="font-bold text-lg sm:text-xl md:text-2xl text-white mb-2">Entry Fee</h3>
+                            <p className="text-green-100 text-sm sm:text-base">{event.details?.entryFee || 'Free'}</p>
+                        </motion.div>
+
                         <motion.div
                             className="bg-gradient-to-br from-yellow-600 via-yellow-700 to-yellow-800 p-6 rounded-2xl text-center border border-yellow-500 shadow-xl"
                             initial={{ opacity: 0, y: 30, scale: 0.9 }}
@@ -252,7 +274,7 @@ export default function AnimatedEventPage({ eventData }) {
                                 <FaTrophy className="mx-auto text-white mb-3" size={isMobile ? 32 : 40} />
                             </motion.div>
                             <h3 className="font-bold text-lg sm:text-xl md:text-2xl text-white mb-2">1st Prize</h3>
-                            <p className="text-yellow-100 text-sm sm:text-base">{event.details?.prizes?.first || 'TBD'}</p>
+                            <p className="text-yellow-100 text-sm sm:text-base">{event.details?.prizes?.first || '-'}</p>
                         </motion.div>
 
                         <motion.div
@@ -273,7 +295,7 @@ export default function AnimatedEventPage({ eventData }) {
                                 <FaTrophy className="mx-auto text-white mb-3" size={isMobile ? 32 : 40} />
                             </motion.div>
                             <h3 className="font-bold text-lg sm:text-xl md:text-2xl text-white mb-2">2nd Prize</h3>
-                            <p className="text-gray-100 text-sm sm:text-base">{event.details?.prizes?.second || 'TBD'}</p>
+                            <p className="text-gray-100 text-sm sm:text-base">{event.details?.prizes?.second || '-'}</p>
                         </motion.div>
 
                         <motion.div
@@ -294,7 +316,7 @@ export default function AnimatedEventPage({ eventData }) {
                                 <FaTrophy className="mx-auto text-white mb-3" size={isMobile ? 32 : 40} />
                             </motion.div>
                             <h3 className="font-bold text-lg sm:text-xl md:text-2xl text-white mb-2">3rd Prize</h3>
-                            <p className="text-amber-100 text-sm sm:text-base">{event.details?.prizes?.third || 'TBD'}</p>
+                            <p className="text-amber-100 text-sm sm:text-base">{event.details?.prizes?.third || '-'}</p>
                         </motion.div>
 
                         <motion.div
@@ -337,52 +359,45 @@ export default function AnimatedEventPage({ eventData }) {
                     >
                         Meet the Coordinators
                     </motion.h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
                         {event.coordinators && event.coordinators.map((coordinator, index) => (
                             <motion.div
                                 key={coordinator.id}
-                                className="bg-gradient-to-br from-gray-800 via-gray-900 to-black p-8 rounded-2xl text-center border border-gray-700 shadow-2xl"
                                 initial={{ opacity: 0, scale: 0.9, y: 30 }}
                                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                                 viewport={{ once: false, amount: 0.2 }}
                                 transition={{
                                     duration: 0.4,
-                                    delay: index * 0.08,
+                                    delay: index * 0.1,
                                     type: "spring",
                                     stiffness: 250,
                                     damping: 25
                                 }}
                                 whileHover={{
-                                    scale: 1.06,
+                                    scale: 1.05,
                                     y: -5,
                                     transition: { duration: 0.2 }
                                 }}
+                                className="relative"
                             >
-                                <motion.div
-                                    className="relative mb-6"
-                                    whileHover={{ scale: 1.15, transition: { duration: 0.2 } }}
-                                >
-                                    <motion.img
-                                        src={coordinator.imageUrl}
-                                        alt={coordinator.name}
-                                        className="w-32 h-32 mx-auto rounded-full border-4 border-gradient-to-r from-blue-500 to-purple-600 shadow-xl"
-                                        initial={{ scale: 0.8, rotate: -45 }}
-                                        whileInView={{ scale: 1, rotate: 0 }}
-                                        viewport={{ once: false }}
-                                        transition={{ duration: 0.4, delay: index * 0.05 + 0.1 }}
-                                        whileHover={{ rotate: 8, transition: { duration: 0.15 } }}
-                                    />
+                                <PhotoCard
+                                    imageUrl={coordinator.imageUrl}
+                                    name={coordinator.name}
+                                />
+                                {coordinator.role && (
                                     <motion.div
-                                        className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 opacity-20 blur-2xl -z-10"
+                                        className="mt-3 text-center"
                                         initial={{ opacity: 0 }}
-                                        whileHover={{ opacity: 0.5 }}
-                                        transition={{ duration: 0.3 }}
-                                    ></motion.div>
-                                </motion.div>
-                                <h3 className="text-xl sm:text-2xl font-semibold text-white mb-2">
-                                    {coordinator.name}
-                                </h3>
-                                <p className="text-gray-400 text-sm sm:text-base">{coordinator.phone}</p>
+                                        whileInView={{ opacity: 1 }}
+                                        viewport={{ once: false }}
+                                        transition={{ duration: 0.3, delay: index * 0.1 + 0.2 }}
+                                    >
+                                        <p className="text-gray-300 text-sm font-medium">{coordinator.role}</p>
+                                        {coordinator.phone && (
+                                            <p className="text-gray-400 text-xs mt-1">{coordinator.phone}</p>
+                                        )}
+                                    </motion.div>
+                                )}
                             </motion.div>
                         ))}
                     </div>

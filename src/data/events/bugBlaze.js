@@ -1,38 +1,39 @@
-// Bug Blaze Event Details  
+// Bug Blaze Event Details
 export const bugBlazeEventData = {
     name: "Bug Blaze",
     logoUrl: "/logo15.png",
-    description: "Bug Blaze is a coding challenge with three rounds of debugging and problem-solving. Test your logic, prove your coding mastery, and innovate under pressure. This intense competition challenges programmers to identify, analyze, and fix complex bugs while developing efficient solutions under time constraints.",
+    description: "Bug Blaze is a coding contest that celebrates problem-solving, logical thinking, and innovation among students. Participants will compete in three exciting rounds – online and offline – to prove their coding skills and creativity in real-time problem-solving.",
     rounds: [
         {
             id: 1,
-            title: "Round 1: Debug Hunt",
-            description: "Participants are given buggy code snippets across multiple programming languages. Identify syntax errors, logical bugs, and runtime issues within a time limit. This round tests fundamental debugging skills and attention to detail across various coding scenarios.",
+            title: "Round 1: Rounds to Explore",
+            description: "The first round, Code Online, will be conducted on the HackerRank platform in online mode. Participants will have 60 minutes to solve coding challenges designed to test their problem-solving and programming skills. This round serves as a filter, and based on performance, the top 15 teams will be shortlisted to qualify for Round 2.",
         },
         {
             id: 2,
-            title: "Round 2: System Diagnosis",
-            description: "Teams work with larger codebases containing multiple interconnected bugs. Debug complex applications with memory leaks, performance issues, and integration problems. Requires systematic debugging approach and collaborative problem-solving skills.",
+            title: "Round 2: Logic on Ground",
+            description: "The second round will be conducted offline at the college venue with a duration of 90 minutes. Participants will face a mix of debugging tasks and algorithm-based challenges that test both accuracy and problem-solving skills. Based on their performance, the top 10 teams will be shortlisted for the finals.",
         },
         {
             id: 3,
-            title: "Round 3: Code Optimization Challenge",
-            description: "Final round combines debugging with code optimization. Fix critical bugs while improving code performance, readability, and maintainability. Teams present their debugging methodology and optimization strategies to expert judges.",
+            title: "Round 3: The Grand Finale",
+            description: "The final round will be held offline as an on-stage presentation with a duration of 120 minutes. Teams will tackle advanced coding problems in real time, with live scoring to track their progress. At the end of the round, the top three teams with the highest points will be declared as winners.",
         },
     ],
     details: {
-        teamSize: "1-2 Members",
+        teamSize: "2 Members",
         prizes: {
-            first: "₹20,000 Cash Prize + Professional Debugging Tools License",
-            second: "₹12,000 Cash Prize + Programming Books Bundle",
-            third: "₹6,000 Cash Prize + Coding Platform Subscriptions",
+            first: "₹1000",
+            second: "₹750",
+            third: "₹500",
         },
     },
     coordinators: [
-        { id: 1, name: "Debug Master Arjun", role: "Senior Developer", imageUrl: "https://via.placeholder.com/150/DC2626/FFFFFF?text=DA" },
-        { id: 2, name: "Code Ninja Shreya", role: "QA Lead", imageUrl: "https://via.placeholder.com/150/059669/FFFFFF?text=CS" },
-        { id: 3, name: "Logic Lord Kiran", role: "Systems Architect", imageUrl: "https://via.placeholder.com/150/7C2D12/FFFFFF?text=LK" },
-        { id: 4, name: "Error Eliminator Eve", role: "Event Coordinator", imageUrl: "https://via.placeholder.com/150/4F46E5/FFFFFF?text=EE" },
+        { id: 1, name: "Santhosh G", imageUrl: "/coordinators/santhosh.jpg" },
+        { id: 2, name: "Dhanush", imageUrl: "/coordinators/dhanush.jpg" },
+        { id: 3, name: "Gobika", imageUrl: "/coordinators/gobika.jpg" },
+        { id: 4, name: "Shruthi C S", imageUrl: "/coordinators/shruthi.jpg" },
     ],
-    gform: "https://forms.gle/bug-blaze-registration"
+
+    gform: "https://forms.gle/ZDZjvDpWQSqhurvp7"
 };

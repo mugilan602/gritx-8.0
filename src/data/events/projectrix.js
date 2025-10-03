@@ -1,38 +1,41 @@
-// ProjectriX Event Details
+// Projectrix Event Details
 export const projectrixEventData = {
-    name: "ProjectriX",
+    name: "Projectrix",
     logoUrl: "/logo1.png",
-    description: "ProjectriX is a platform where creativity meets technology, bringing student projects and prototypes to the spotlight. Explore innovative ideas, witness problem-solving in action, and discover future-ready solutions that inspire the next generation. This event showcases the best student innovations across multiple domains including AI, IoT, Web Development, Mobile Apps, and emerging technologies.",
+    description: "Unleash your creativity and showcase your technical brilliance in Projectrix, an exciting event designed to transform raw ideas into real-world solutions. Compete, present, and innovate your way to the top!",
     rounds: [
         {
             id: 1,
-            title: "Round 1: Project Submission & Review",
-            description: "Teams submit their project proposals with detailed documentation, including problem statement, solution approach, technology stack, and implementation timeline. Our expert panel reviews submissions based on innovation, feasibility, impact, and technical complexity. Selected teams advance to the demonstration round.",
+            title: "Abstract Submission",
+            description: "Register your abstract and grab your spot! The Top 20 teams with the best ideas will move forward.",
         },
         {
             id: 2,
-            title: "Round 2: Live Demonstration",
-            description: "Qualified teams present their working prototypes or projects to judges and audience. This round focuses on functionality, user experience, code quality, and real-world applicability. Teams have 10 minutes to demonstrate and 5 minutes for Q&A with the judging panel.",
+            title: "Round 1: On-Spot Demo Presentation",
+            description: "Bring your concept to life! The shortlisted teams will showcase their projects through a live demonstration. Only the Top 10 (or 5) will move to the finals.",
         },
         {
             id: 3,
-            title: "Round 3: Final Pitch & Evaluation",
-            description: "Finalists present their complete project with business viability, scalability potential, and future roadmap. Judges evaluate based on innovation, technical execution, presentation skills, and commercial potential. Winners receive mentorship opportunities and industry connections.",
+            title: "Round 2: Product Advertisement",
+            description: "It’s time to sell your innovation! Finalists must advertise their project as a product, combining creativity, strategy, and real-world vision.",
         },
     ],
     details: {
-        teamSize: "1-4 Members",
+        teamSize: "Upto 3 Members",
         prizes: {
-            first: "₹25,000 Cash Prize + Mentorship + Incubation Support",
-            second: "₹15,000 Cash Prize + Industry Vouchers",
-            third: "₹8,000 Cash Prize + Tech Swag",
+            first: "₹1000",
+            second: "₹750",
+            third: "₹500",
         },
+        entryFee: "₹150 per team",
     },
     coordinators: [
-        { id: 1, name: "Dr. Rajesh Kumar", role: "Faculty Coordinator", imageUrl: "https://via.placeholder.com/150/4F46E5/FFFFFF?text=RK" },
-        { id: 2, name: "Ananya Patel", role: "Student Lead", imageUrl: "https://via.placeholder.com/150/7C3AED/FFFFFF?text=AP" },
-        { id: 3, name: "Vikram Singh", role: "Technical Head", imageUrl: "https://via.placeholder.com/150/2563EB/FFFFFF?text=VS" },
-        { id: 4, name: "Priya Sharma", role: "Event Manager", imageUrl: "https://via.placeholder.com/150/DC2626/FFFFFF?text=PS" },
+        { id: 1, name: "Barani B", imageUrl: "/coordinators/barani.jpg" },
+        { id: 2, name: "Tharushi S S", imageUrl: "/coordinators/tharushi.jpg" },
+        { id: 3, name: "Akash N", imageUrl: "/coordinators/akash.jpg" },
+        { id: 4, name: "Mohana G U", imageUrl: "/coordinators/mohana.jpg" },
+        { id: 5, name: "Aditya R", imageUrl: "/coordinators/aditya.jpg" },
     ],
-    gform: "https://forms.gle/projectrix-registration"
+
+    gform: "https://forms.gle/wsUfvhxBDfpkpVM7A"
 };

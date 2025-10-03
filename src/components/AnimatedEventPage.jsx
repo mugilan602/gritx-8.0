@@ -147,7 +147,7 @@ export default function AnimatedEventPage({ eventData }) {
                         {event.name}
                     </motion.h1>
                     <motion.p
-                        className="mt-3 sm:mt-4 text-sm sm:text-base font-[pirata_one] tracking-widest md:text-lg lg:text-2xl text-gray-300 leading-relaxed text-center max-w-2xl sm:max-w-lg md:max-w-4xl lg:max-w-6xl mx-auto px-4"
+                        className="mt-3 sm:mt-4 text-base sm:text-base font-[pirata_one] tracking-widest md:text-lg lg:text-2xl text-gray-300 leading-relaxed text-center max-w-2xl sm:max-w-lg md:max-w-4xl lg:max-w-6xl mx-auto px-4"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.4, delay: 0.3 }}

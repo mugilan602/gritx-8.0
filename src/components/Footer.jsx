@@ -36,17 +36,16 @@ const Footer = () => {
                         <p className='text-gray-300 mb-2 text-sm lg:text-lg'>
                             <span className='font-normal'>Email:</span> gritxnss@sairam.edu.in
                         </p>
-                        <p className='text-gray-300 mb-2 text-sm lg:text-lg'>
-                            <span className='font-normal'>Phone:</span> +1 (555) 123-4567
-                        </p>
                         <p className='text-gray-300 text-sm lg:text-lg'>
-                            <span className='font-normal'>Address:</span> 123 Tech Street, Innovation City, IC 12345
+                            <span className='font-normal'>Address: <br /></span> Sai Leo Nagar, West Tambaram, <br />
+                            Chennai – 600 044. <br />
+                            Tamil Nadu. India.
                         </p>
                     </div>
                     {/* Social Media Links */}
                     <div className='flex justify-center lg:justify-start space-x-6'>
                         <a
-                            href="https://instagram.com/gritx"
+                            href="https://www.instagram.com/sairamnss?igsh=Z2tlMWJmMzM3a3k="
                             target="_blank"
                             rel="noopener noreferrer"
                             className='text-gray-300 hover:text-pink-400 transition-colors duration-200 text-2xl'
@@ -55,7 +54,7 @@ const Footer = () => {
                             <FaInstagram />
                         </a>
                         <a
-                            href="https://linkedin.com/company/gritx"
+                            href="https://www.linkedin.com/company/nss-sairam/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className='text-gray-300 hover:text-blue-400 transition-colors duration-200 text-2xl'
@@ -86,6 +85,7 @@ const Footer = () => {
                             <p className='hover:text-white transition-colors duration-200'>Raghulnath P L - +91 6385 409 302</p>
                             <p className='hover:text-white transition-colors duration-200'>Eswar S - +91 8489 539 985</p>
                             <p className='hover:text-white transition-colors duration-200'>Vijay Athithya S V - +91 9655 576 569</p>
+                            <p className='hover:text-white transition-colors duration-200'>Parthipan V S - +91 902 5603 385</p>
                         </div>
                     </div>
                 </div>

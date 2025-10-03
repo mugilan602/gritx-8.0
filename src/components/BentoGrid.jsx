@@ -114,7 +114,7 @@ const BentoGrid = () => {
                     <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 md:p-6 lg:p-8 shadow-lg border border-white/10 transition-all duration-300 group flex flex-col">
                         <div className="flex justify-between items-center gap-3 mb-4 md:mb-6 cursor-pointer">
                             <h3 className="text-xl md:text-2xl font-[Rye] tracking-widest font-medium text-white group-hover:text-green-400 transition-colors duration-300">
-                                Design
+                                Gritx 8.0
                             </h3>
                             <span className="text-green-400 text-lg group-hover:translate-x-1 transition-transform duration-300"><ArrowUpRight /></span>
                         </div>
@@ -148,7 +148,7 @@ const BentoGrid = () => {
                         <div className="flex flex-col sm:flex-row gap-6 items-start flex-1">
                             <div className="w-full sm:w-1/2 h-48 md:h-56 lg:h-full flex-shrink-0">
                                 <img
-                                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop&crop=entropy&auto=format"
+                                    src="/nss.jpg"
                                     alt="Community Impact"
                                     className="w-full h-full object-cover rounded-xl shadow-md"
                                 />
